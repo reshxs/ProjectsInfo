@@ -1,10 +1,15 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using ProjectsInfo.Models;
+
 namespace ProjectsInfo.Data
 {
-    public class ProjectsInfoContext
+    public class ProjectsInfoContext : DbContext
     {
-        public ProjectsInfoContext()
+        public ProjectsInfoContext(DbContextOptions<ProjectsInfoContext> options)
+            : base (options)
         {
         }
+
+        public DbSet<Project> Project { get; set; }
     }
 }
