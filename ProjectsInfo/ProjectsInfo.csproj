@@ -9,7 +9,5 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\" />
-    <Folder Include="Views\Auth\" />
-    <Folder Include="Views\Project\" />
   </ItemGroup>
 </Project>
