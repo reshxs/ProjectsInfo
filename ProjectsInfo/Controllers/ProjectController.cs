@@ -11,9 +11,9 @@ namespace ProjectsInfo.Controllers
     public class ProjectController : Controller
     {
         // GET: /<controller>/
-        public IActionResult Index(int ID)
+        public IActionResult Index()
         {
-            throw new NotImplementedException();
+            return View();
         }
 
         public IActionResult Add()
@@ -21,12 +21,12 @@ namespace ProjectsInfo.Controllers
             throw new NotImplementedException();
         }
 
-        public IActionResult ChangeFinance(int ID)
+        public IActionResult ChangeFinance()
         {
             throw new NotImplementedException();
         }
 
-        public IActionResult ChangeUsers(int ID)
+        public IActionResult ChangeUsers()
         {
             throw new NotImplementedException();
         }
