@@ -13,5 +13,10 @@ namespace ProjectsInfo.Models
 
         [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
+
+        public TimeSpan ExpectedHours { get; set; }
+        public TimeSpan TestingHours { get; set; }
+
+        public decimal GeneralExpences { get; set; }
     }
 }

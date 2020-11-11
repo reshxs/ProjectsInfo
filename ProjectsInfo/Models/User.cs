@@ -10,6 +10,7 @@ namespace ProjectsInfo.Models
         public string FamalyName { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
+        public decimal Salary { get; set; }
 
         //TODO добавить отношение Mane-to-One с проектом
     }
