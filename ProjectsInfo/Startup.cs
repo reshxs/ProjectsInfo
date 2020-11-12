@@ -29,7 +29,7 @@ namespace ProjectsInfo
 
             //Adding DBContext to servisees
             services.AddDbContext<ProjectsInfoContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString("ProjectsInfoContext")));
+                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

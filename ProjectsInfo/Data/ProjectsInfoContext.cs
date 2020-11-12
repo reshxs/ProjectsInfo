@@ -14,10 +14,5 @@ namespace ProjectsInfo.Data
 
         public DbSet<Project> Projects { get; set; }
         public DbSet<User> Users { get; set; }
-
-        //TODO change DB options
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder.UseNpgsql(
-                "Host=localhost;Port=5432;Database=usersdb;Username=postgres;Password=password");
     }
 }
