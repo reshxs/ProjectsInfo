@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -18,6 +19,7 @@ namespace ProjectsInfo
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("ru-RU");
         }
 
         public IConfiguration Configuration { get; }
