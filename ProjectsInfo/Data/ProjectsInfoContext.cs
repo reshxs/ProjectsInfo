@@ -7,13 +7,13 @@ namespace ProjectsInfo.Data
 {
     public class ProjectsInfoContext : DbContext
     {
-        public ProjectsInfoContext()
+        public ProjectsInfoContext(DbContextOptions<ProjectsInfoContext> options)
+            : base(options)
         {
         }
 
         public DbSet<Project> Projects { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<ProjectTask> Tasks { get; set; }
 
         //TODO change DB options
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

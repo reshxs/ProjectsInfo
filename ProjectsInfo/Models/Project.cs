@@ -18,5 +18,7 @@ namespace ProjectsInfo.Models
         public TimeSpan TestingHours { get; set; }
 
         public decimal GeneralExpences { get; set; }
+
+        //TODO add list of developers with their salary and hours per each month
     }
 }
