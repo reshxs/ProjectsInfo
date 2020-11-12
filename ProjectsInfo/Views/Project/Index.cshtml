@@ -4,10 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Проекты</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Добавить проект</a>
 </p>
 <table class="table">
     <thead>
@@ -22,19 +22,7 @@
                 @Html.DisplayNameFor(model => model.EndDate)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ExpectedHours)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DevelopmentHourPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TestingHours)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TestingHourPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GeneralExpences)
+                @Html.DisplayNameFor(model => model.Price)
             </th>
             <th></th>
         </tr>
@@ -52,19 +40,7 @@
                 @Html.DisplayFor(modelItem => item.EndDate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ExpectedHours)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DevelopmentHourPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TestingHours)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TestingHourPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GeneralExpences)
+                @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
