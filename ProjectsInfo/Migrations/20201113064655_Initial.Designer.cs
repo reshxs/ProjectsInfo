@@ -10,8 +10,8 @@ using ProjectsInfo.Data;
 namespace ProjectsInfo.Migrations
 {
     [DbContext(typeof(ProjectsInfoContext))]
-    [Migration("20201112100017_PriceOfHours1")]
-    partial class PriceOfHours1
+    [Migration("20201113064655_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,8 +34,8 @@ namespace ProjectsInfo.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<TimeSpan>("ExpectedHours")
-                        .HasColumnType("interval");
+                    b.Property<int>("ExpectedHours")
+                        .HasColumnType("integer");
 
                     b.Property<decimal>("GeneralExpences")
                         .HasColumnType("numeric");
@@ -46,8 +46,8 @@ namespace ProjectsInfo.Migrations
                     b.Property<decimal>("TestingHourPrice")
                         .HasColumnType("numeric");
 
-                    b.Property<TimeSpan>("TestingHours")
-                        .HasColumnType("interval");
+                    b.Property<int>("TestingHours")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Title")
                         .HasColumnType("text");

@@ -29,7 +29,6 @@ namespace ProjectsInfo
         {
             services.AddControllersWithViews();
 
-            //Adding DBContext to servisees
             services.AddDbContext<ProjectsInfoContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
         }

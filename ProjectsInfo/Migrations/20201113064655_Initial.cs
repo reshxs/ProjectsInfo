@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ProjectsInfo.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -17,8 +17,10 @@ namespace ProjectsInfo.Migrations
                     Title = table.Column<string>(nullable: true),
                     StartDate = table.Column<DateTime>(nullable: false),
                     EndDate = table.Column<DateTime>(nullable: false),
-                    ExpectedHours = table.Column<TimeSpan>(nullable: false),
-                    TestingHours = table.Column<TimeSpan>(nullable: false),
+                    ExpectedHours = table.Column<int>(nullable: false),
+                    DevelopmentHourPrice = table.Column<decimal>(nullable: false),
+                    TestingHours = table.Column<int>(nullable: false),
+                    TestingHourPrice = table.Column<decimal>(nullable: false),
                     GeneralExpences = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
