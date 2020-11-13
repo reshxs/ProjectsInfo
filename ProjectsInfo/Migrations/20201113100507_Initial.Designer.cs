@@ -10,7 +10,7 @@ using ProjectsInfo.Data;
 namespace ProjectsInfo.Migrations
 {
     [DbContext(typeof(ProjectsInfoContext))]
-    [Migration("20201113064655_Initial")]
+    [Migration("20201113100507_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,9 +36,6 @@ namespace ProjectsInfo.Migrations
 
                     b.Property<int>("ExpectedHours")
                         .HasColumnType("integer");
-
-                    b.Property<decimal>("GeneralExpences")
-                        .HasColumnType("numeric");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("timestamp without time zone");
