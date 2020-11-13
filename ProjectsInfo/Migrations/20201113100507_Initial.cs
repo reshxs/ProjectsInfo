@@ -20,8 +20,7 @@ namespace ProjectsInfo.Migrations
                     ExpectedHours = table.Column<int>(nullable: false),
                     DevelopmentHourPrice = table.Column<decimal>(nullable: false),
                     TestingHours = table.Column<int>(nullable: false),
-                    TestingHourPrice = table.Column<decimal>(nullable: false),
-                    GeneralExpences = table.Column<decimal>(nullable: false)
+                    TestingHourPrice = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {

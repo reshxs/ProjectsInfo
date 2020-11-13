@@ -32,16 +32,11 @@ namespace ProjectsInfo.Models
         [DataType(DataType.Currency)]
         public decimal TestingHourPrice { get; set; }
 
-        [Display(Name = "Общие расходы")]
-        [DataType(DataType.Currency)]
-        public decimal GeneralExpences { get; set; }
-
         [DataType(DataType.Currency)]
         [Display(Name = "Стоимость")]
         public decimal Price { get {
                 return TestingHours * TestingHourPrice
-                    + ExpectedHours * DevelopmentHourPrice
-                    + GeneralExpences;
+                    + ExpectedHours * DevelopmentHourPrice;
             } }
 
         //TODO add list of developers with their salary and hours per each month
