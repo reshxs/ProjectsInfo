@@ -18,17 +18,15 @@ namespace ProjectsInfo.Models
         [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
 
-        [DataType(DataType.Time)]
         [Display(Name = "Часы разработки")]
-        public TimeSpan ExpectedHours { get; set; }
+        public int ExpectedHours { get; set; }
 
         [Display(Name = "Цена часа разработки")]
         [DataType(DataType.Currency)]
         public decimal DevelopmentHourPrice { get; set; }
 
-        [DataType(DataType.Time)]
         [Display(Name = "Часы тестирования")]
-        public TimeSpan TestingHours { get; set; }
+        public int TestingHours { get; set; }
 
         [Display(Name = "Цена часа тестирования")]
         [DataType(DataType.Currency)]
@@ -41,8 +39,8 @@ namespace ProjectsInfo.Models
         [DataType(DataType.Currency)]
         [Display(Name = "Стоимость")]
         public decimal Price { get {
-                return TestingHours.Hours * TestingHourPrice
-                    + ExpectedHours.Hours * DevelopmentHourPrice
+                return TestingHours * TestingHourPrice
+                    + ExpectedHours * DevelopmentHourPrice
                     + GeneralExpences;
             } }
 
