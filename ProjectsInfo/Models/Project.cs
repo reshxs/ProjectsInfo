@@ -5,6 +5,9 @@ namespace ProjectsInfo.Models
 {
     public class Project
     {
+        //Константа с общимим затратами
+        private const decimal _genralExpences = 100;
+        
         public int ID { get; set; }
 
         [Display(Name = "Название")]
