@@ -1,13 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ProjectsInfo.Models
 {
     public class Project
-    {
-        //Константа с общимим затратами
-        private const decimal _genralExpences = 100;
-        
+    {        
         public int ID { get; set; }
 
         [Display(Name = "Название")]
@@ -42,6 +40,10 @@ namespace ProjectsInfo.Models
                     + ExpectedHours * DevelopmentHourPrice;
             } }
 
-        //TODO add list of developers with their salary and hours per each month
+        //[Display(Name = "Разработчики")]
+        //public ICollection<ProjectAssigment> Developers { get; set; }
+
+        //[Display(Name = "Менеджер")]
+        //public ProjectAssigment Manager { get; set; }
     }
 }
