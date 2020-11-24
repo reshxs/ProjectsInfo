@@ -10,7 +10,7 @@ using ProjectsInfo.Data;
 namespace ProjectsInfo.Migrations
 {
     [DbContext(typeof(ProjectsInfoContext))]
-    [Migration("20201113100507_Initial")]
+    [Migration("20201124120158_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,24 @@ namespace ProjectsInfo.Migrations
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
                 .HasAnnotation("ProductVersion", "3.1.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            modelBuilder.Entity("ProjectsInfo.Models.Developer", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("Salary")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Developers");
+                });
 
             modelBuilder.Entity("ProjectsInfo.Models.Project", b =>
                 {
@@ -54,6 +72,28 @@ namespace ProjectsInfo.Migrations
                     b.ToTable("Projects");
                 });
 
+            modelBuilder.Entity("ProjectsInfo.Models.ProjectAssigment", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("DeveloperID")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ProjectID")
+                        .HasColumnType("integer");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("DeveloperID");
+
+                    b.HasIndex("ProjectID");
+
+                    b.ToTable("ProjectAssigments");
+                });
+
             modelBuilder.Entity("ProjectsInfo.Models.User", b =>
                 {
                     b.Property<int>("ID")
@@ -76,6 +116,21 @@ namespace ProjectsInfo.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("ProjectsInfo.Models.ProjectAssigment", b =>
+                {
+                    b.HasOne("ProjectsInfo.Models.Developer", "Developer")
+                        .WithMany("Projects")
+                        .HasForeignKey("DeveloperID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProjectsInfo.Models.Project", "Project")
+                        .WithMany("Developers")
+                        .HasForeignKey("ProjectID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
