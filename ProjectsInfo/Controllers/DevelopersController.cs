@@ -10,22 +10,22 @@ using ProjectsInfo.Models;
 
 namespace ProjectsInfo.Controllers
 {
-    public class ProjectController : Controller
+    public class DevelopersController : Controller
     {
         private readonly ProjectsInfoContext _context;
 
-        public ProjectController(ProjectsInfoContext context)
+        public DevelopersController(ProjectsInfoContext context)
         {
             _context = context;
         }
 
-        // GET: Project
+        // GET: Developers
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Projects.ToListAsync());
+            return View(await _context.Developers.ToListAsync());
         }
 
-        // GET: Project/Details/5
+        // GET: Developers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace ProjectsInfo.Controllers
                 return NotFound();
             }
 
-            var project = await _context.Projects
+            var developer = await _context.Developers
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (project == null)
+            if (developer == null)
             {
                 return NotFound();
             }
 
-            return View(project);
+            return View(developer);
         }
 
-        // GET: Project/Create
+        // GET: Developers/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Project/Create
+        // POST: Developers/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Title,StartDate,EndDate,ExpectedHours,DevelopmentHourPrice,TestingHours,TestingHourPrice")] Project project)
+        public async Task<IActionResult> Create([Bind("ID,Name,Salary")] Developer developer)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(project);
+                _context.Add(developer);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(project);
+            return View(developer);
         }
 
-        // GET: Project/Edit/5
+        // GET: Developers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace ProjectsInfo.Controllers
                 return NotFound();
             }
 
-            var project = await _context.Projects.FindAsync(id);
-            if (project == null)
+            var developer = await _context.Developers.FindAsync(id);
+            if (developer == null)
             {
                 return NotFound();
             }
-            return View(project);
+            return View(developer);
         }
 
-        // POST: Project/Edit/5
+        // POST: Developers/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,StartDate,EndDate,ExpectedHours,DevelopmentHourPrice,TestingHours,TestingHourPrice")] Project project)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Salary")] Developer developer)
         {
-            if (id != project.ID)
+            if (id != developer.ID)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace ProjectsInfo.Controllers
             {
                 try
                 {
-                    _context.Update(project);
+                    _context.Update(developer);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProjectExists(project.ID))
+                    if (!DeveloperExists(developer.ID))
                     {
                         return NotFound();
                     }
@@ -113,59 +113,10 @@ namespace ProjectsInfo.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(project);
+            return View(developer);
         }
 
-        //GET: Project/EditMembers/5
-        public async Task<IActionResult> EditMembers(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var project = await _context.Projects.FindAsync(id);
-            if (project == null)
-            {
-                return NotFound();
-            }
-            return View(project);
-        }
-
-        //POST: Project/EditMembers/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditMembers(int? id, [Bind("Developers, Manager")] Project project)
-        {
-            if (id != project.ID)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(project);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProjectExists(project.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(project);
-        }
-
-        // GET: Project/Delete/5
+        // GET: Developers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -173,30 +124,30 @@ namespace ProjectsInfo.Controllers
                 return NotFound();
             }
 
-            var project = await _context.Projects
+            var developer = await _context.Developers
                 .FirstOrDefaultAsync(m => m.ID == id);
-            if (project == null)
+            if (developer == null)
             {
                 return NotFound();
             }
 
-            return View(project);
+            return View(developer);
         }
 
-        // POST: Project/Delete/5
+        // POST: Developers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var project = await _context.Projects.FindAsync(id);
-            _context.Projects.Remove(project);
+            var developer = await _context.Developers.FindAsync(id);
+            _context.Developers.Remove(developer);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProjectExists(int id)
+        private bool DeveloperExists(int id)
         {
-            return _context.Projects.Any(e => e.ID == id);
+            return _context.Developers.Any(e => e.ID == id);
         }
     }
 }

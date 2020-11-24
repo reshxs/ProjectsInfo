@@ -27,6 +27,7 @@ namespace ProjectsInfo.Models
                 return (Salary / 160) * _multiplier + _genralExpences;
             }}
 
+        [Display(Name = "Проекты")]
         public ICollection<ProjectAssigment> Projects { get; set; }
     }
 }

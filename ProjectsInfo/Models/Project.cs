@@ -40,10 +40,7 @@ namespace ProjectsInfo.Models
                     + ExpectedHours * DevelopmentHourPrice;
             } }
 
-        //[Display(Name = "Разработчики")]
-        //public ICollection<ProjectAssigment> Developers { get; set; }
-
-        //[Display(Name = "Менеджер")]
-        //public ProjectAssigment Manager { get; set; }
+        [Display(Name = "Разработчики")]
+        public ICollection<ProjectAssigment> Developers { get; set; }
     }
 }
