@@ -25,11 +25,18 @@ namespace ProjectsInfo.Data
                 .HasMany(developer => developer.Projects)
                 .WithOne(projectAssigment => projectAssigment.Developer)
                 .IsRequired();
+
+            //One-to-Many (projectAssigment <- month)
+            modelBuilder.Entity<ProjectAssigment>()
+                .HasMany(projectAssigment => projectAssigment.Months)
+                .WithOne(month => month.ProjectAssigment)
+                .IsRequired();
         }
 
         public DbSet<Project> Projects { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Developer> Developers { get; set; }
         public DbSet<ProjectAssigment> ProjectAssigments { get; set; }
+        public DbSet<Month> Months { get; set; }
     }
 }

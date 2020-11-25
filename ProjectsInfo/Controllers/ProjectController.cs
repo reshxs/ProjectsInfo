@@ -54,7 +54,9 @@ namespace ProjectsInfo.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Title,StartDate,EndDate,ExpectedHours,DevelopmentHourPrice,TestingHours,TestingHourPrice")] Project project)
+        public async Task<IActionResult> Create(
+            [Bind("ID,Title,StartDate,EndDate,ExpectedHours,DevelopmentHourPrice,TestingHours,TestingHourPrice")]
+            Project project)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +64,7 @@ namespace ProjectsInfo.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             return View(project);
         }
 
@@ -78,6 +81,7 @@ namespace ProjectsInfo.Controllers
             {
                 return NotFound();
             }
+
             return View(project);
         }
 
@@ -86,7 +90,9 @@ namespace ProjectsInfo.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Title,StartDate,EndDate,ExpectedHours,DevelopmentHourPrice,TestingHours,TestingHourPrice")] Project project)
+        public async Task<IActionResult> Edit(int id,
+            [Bind("ID,Title,StartDate,EndDate,ExpectedHours,DevelopmentHourPrice,TestingHours,TestingHourPrice")]
+            Project project)
         {
             if (id != project.ID)
             {
@@ -111,8 +117,10 @@ namespace ProjectsInfo.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
+
             return View(project);
         }
 
@@ -129,6 +137,7 @@ namespace ProjectsInfo.Controllers
             {
                 return NotFound();
             }
+
             return View(project);
         }
 
@@ -160,8 +169,10 @@ namespace ProjectsInfo.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
+
             return View(project);
         }
 
