@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ProjectsInfo.Migrations
 {
-    public partial class Initial : Migration
+    public partial class Inital : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -83,6 +83,32 @@ namespace ProjectsInfo.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Months",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Date = table.Column<DateTime>(nullable: false),
+                    Hours = table.Column<int>(nullable: false),
+                    ProjectAssigmentID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Months", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Months_ProjectAssigments_ProjectAssigmentID",
+                        column: x => x.ProjectAssigmentID,
+                        principalTable: "ProjectAssigments",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Months_ProjectAssigmentID",
+                table: "Months",
+                column: "ProjectAssigmentID");
+
             migrationBuilder.CreateIndex(
                 name: "IX_ProjectAssigments_DeveloperID",
                 table: "ProjectAssigments",
@@ -97,10 +123,13 @@ namespace ProjectsInfo.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ProjectAssigments");
+                name: "Months");
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "ProjectAssigments");
 
             migrationBuilder.DropTable(
                 name: "Developers");

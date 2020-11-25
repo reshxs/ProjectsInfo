@@ -37,6 +37,29 @@ namespace ProjectsInfo.Migrations
                     b.ToTable("Developers");
                 });
 
+            modelBuilder.Entity("ProjectsInfo.Models.Month", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("Hours")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ProjectAssigmentID")
+                        .HasColumnType("integer");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ProjectAssigmentID");
+
+                    b.ToTable("Months");
+                });
+
             modelBuilder.Entity("ProjectsInfo.Models.Project", b =>
                 {
                     b.Property<int>("ID")
@@ -114,6 +137,15 @@ namespace ProjectsInfo.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("ProjectsInfo.Models.Month", b =>
+                {
+                    b.HasOne("ProjectsInfo.Models.ProjectAssigment", "ProjectAssigment")
+                        .WithMany("Months")
+                        .HasForeignKey("ProjectAssigmentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ProjectsInfo.Models.ProjectAssigment", b =>

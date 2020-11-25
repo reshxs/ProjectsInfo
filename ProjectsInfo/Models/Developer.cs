@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace ProjectsInfo.Models
@@ -7,10 +6,10 @@ namespace ProjectsInfo.Models
     public class Developer
     {
         // Обшие затраты - константа, прибавляющаяся к стоимости часа
-        private const decimal _genralExpences = 100;
+        private const decimal GenralExpences = 100;
 
         // Повышающий коэффициент
-        private const decimal _multiplier = 2.5m;
+        private const decimal Multiplier = 2.5m;
 
         public int ID { get; set; }
 
@@ -24,7 +23,7 @@ namespace ProjectsInfo.Models
         [Display(Name = "Стоимость часа работы")]
         public decimal HourPrice { get
             {
-                return (Salary / 160) * _multiplier + _genralExpences;
+                return (Salary / 160) * Multiplier + GenralExpences;
             }}
 
         [Display(Name = "Проекты")]
