@@ -54,7 +54,7 @@ namespace ProjectsInfo.Migrations
 
             modelBuilder.Entity("ProjectsInfo.Models.Month", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("DeveloperAssignmentID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
@@ -71,7 +71,7 @@ namespace ProjectsInfo.Migrations
                     b.Property<int>("Hours")
                         .HasColumnType("integer");
 
-                    b.HasKey("ID");
+                    b.HasKey("DeveloperAssignmentID");
 
                     b.HasIndex("DeveloperAssignmentProjectID", "DeveloperAssignmentDeveloperID");
 

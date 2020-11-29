@@ -85,16 +85,16 @@ namespace ProjectsInfo.Migrations
                 name: "Months",
                 columns: table => new
                 {
-                    ID = table.Column<int>(nullable: false)
+                    DeveloperAssignmentID = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Date = table.Column<DateTime>(nullable: false),
-                    Hours = table.Column<int>(nullable: false),
                     DeveloperAssignmentProjectID = table.Column<int>(nullable: false),
-                    DeveloperAssignmentDeveloperID = table.Column<int>(nullable: false)
+                    DeveloperAssignmentDeveloperID = table.Column<int>(nullable: false),
+                    Date = table.Column<DateTime>(nullable: false),
+                    Hours = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Months", x => x.ID);
+                    table.PrimaryKey("PK_Months", x => x.DeveloperAssignmentID);
                     table.ForeignKey(
                         name: "FK_Months_ProjectAssigments_DeveloperAssignmentProjectID_Devel~",
                         columns: x => new { x.DeveloperAssignmentProjectID, x.DeveloperAssignmentDeveloperID },

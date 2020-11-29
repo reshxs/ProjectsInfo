@@ -25,6 +25,10 @@ namespace ProjectsInfo.Data
                 .HasMany(developer => developer.Projects)
                 .WithOne(projectAssigment => projectAssigment.Developer)
                 .IsRequired();
+            
+            //Primary key for DeveloperAssignment
+            modelBuilder.Entity<DeveloperAssignment>()
+                .HasKey(d => new {d.ProjectID, d.DeveloperID});
 
             //One-to-Many (projectAssigment <- month)
             modelBuilder.Entity<DeveloperAssignment>()
@@ -32,10 +36,9 @@ namespace ProjectsInfo.Data
                 .WithOne(month => month.DeveloperAssignment)
                 .IsRequired();
 
-            //Primary key for DeveloperAssignment
-            modelBuilder.Entity<DeveloperAssignment>()
-                .HasKey(d => new {d.ProjectID, d.DeveloperID});
-
+            //Primary key for month
+            modelBuilder.Entity<Month>()
+                .HasKey(m => m.DeveloperAssignmentID);
         }
 
         public DbSet<Project> Projects { get; set; }

@@ -10,7 +10,7 @@ using ProjectsInfo.Data;
 namespace ProjectsInfo.Migrations
 {
     [DbContext(typeof(ProjectsInfoContext))]
-    [Migration("20201129114633_Initial")]
+    [Migration("20201129124456_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -56,7 +56,7 @@ namespace ProjectsInfo.Migrations
 
             modelBuilder.Entity("ProjectsInfo.Models.Month", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("DeveloperAssignmentID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
@@ -73,7 +73,7 @@ namespace ProjectsInfo.Migrations
                     b.Property<int>("Hours")
                         .HasColumnType("integer");
 
-                    b.HasKey("ID");
+                    b.HasKey("DeveloperAssignmentID");
 
                     b.HasIndex("DeveloperAssignmentProjectID", "DeveloperAssignmentDeveloperID");
 
