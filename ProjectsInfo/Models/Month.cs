@@ -5,6 +5,7 @@ namespace ProjectsInfo.Models
 {
     public class Month
     {
+        public int ID { get; set; }
         public int DeveloperAssignmentID { get; set; }
         public DeveloperAssignment DeveloperAssignment { get; set; }
 

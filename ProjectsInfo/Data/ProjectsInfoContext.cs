@@ -35,10 +35,6 @@ namespace ProjectsInfo.Data
                 .HasMany(projectAssigment => projectAssigment.Months)
                 .WithOne(month => month.DeveloperAssignment)
                 .IsRequired();
-
-            //Primary key for month
-            modelBuilder.Entity<Month>()
-                .HasKey(m => m.DeveloperAssignmentID);
         }
 
         public DbSet<Project> Projects { get; set; }
