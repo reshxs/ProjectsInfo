@@ -1,9 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProjectsInfo.Data;
 using ProjectsInfo.Models;
@@ -183,7 +181,7 @@ namespace ProjectsInfo.Controllers
                 .ThenInclude(p => p.Developer)
                 .FirstOrDefaultAsync(m => m.ID == id);
             
-            if (await TryUpdateModelAsync<Project>(
+            if (await TryUpdateModelAsync(
                 projectToUpdate,
                 "",
                 p => p.Title, p => p.StartDate, p => p.EndDate, p => p.ExpectedHours, p => p.DevelopmentHourPrice,
