@@ -11,6 +11,7 @@ namespace ProjectsInfo.Models
         // Повышающий коэффициент
         private const decimal Multiplier = 2.5m;
 
+        // Primary key
         public int ID { get; set; }
 
         [Display(Name = "ФИО")]
@@ -27,6 +28,6 @@ namespace ProjectsInfo.Models
             }}
 
         [Display(Name = "Проекты")]
-        public ICollection<ProjectAssigment> Projects { get; set; }
+        public ICollection<DeveloperAssignment> Projects { get; set; }
     }
 }

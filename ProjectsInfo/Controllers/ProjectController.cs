@@ -124,56 +124,123 @@ namespace ProjectsInfo.Controllers
             return View(project);
         }
 
-        //GET: Project/EditMembers/5
-        public async Task<IActionResult> EditMembers(int? id)
+        //GET: Project/EditDevelopers/5
+        public async Task<IActionResult> EditDevelopers(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var project = await _context.Projects.FindAsync(id);
+            var project = await _context.Projects
+                .Include(p => p.Developers)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(m => m.ID == id);
+
             if (project == null)
             {
                 return NotFound();
             }
 
+            PopulateAssignedDeveloperData(project);
             return View(project);
         }
+        
+        private void PopulateAssignedDeveloperData(Project project)
+        {
+            var allDevelopers = _context.Developers;
+            var projectDevelopers = new HashSet<int>(
+                project.Developers.Select(d => d.DeveloperID));
+            var viewModel = new List<AssignedDeveloperData>();
+            
+            foreach (var developer in allDevelopers)
+            {
+                viewModel.Add(new AssignedDeveloperData()
+                {
+                    DeveloperID = developer.ID,
+                    Name = developer.Name,
+                    Assigned = projectDevelopers.Contains(developer.ID)
+                });
+            }
 
-        //POST: Project/EditMembers/5
+            ViewData["Developers"] = viewModel;
+        }
+
+        // POST: Project/EditDevelopers/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditMembers(int? id, [Bind("Developers, Manager")] Project project)
+        public async Task<IActionResult> EditDevelopers(int? id, string[] selectedDevelopers)
         {
-            if (id != project.ID)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            var projectToUpdate = await _context.Projects
+                .Include(p => p.Developers)
+                .ThenInclude(p => p.Developer)
+                .FirstOrDefaultAsync(m => m.ID == id);
+            
+            if (await TryUpdateModelAsync<Project>(
+                projectToUpdate,
+                "",
+                p => p.Title, p => p.StartDate, p => p.EndDate, p => p.ExpectedHours, p => p.DevelopmentHourPrice,
+                p => p.TestingHours, p => p.TestingHourPrice
+            ))
             {
+                UpdateProjectDevelopers(selectedDevelopers, projectToUpdate);
                 try
                 {
-                    _context.Update(project);
                     await _context.SaveChangesAsync();
                 }
-                catch (DbUpdateConcurrencyException)
+                catch(DbUpdateException)
                 {
-                    if (!ProjectExists(project.ID))
+                    ModelState.AddModelError("", "Unable to save changes. " +
+                                                 "Try again, and if the problem persists, " +
+                                                 "see your system administrator.");
+                }   
+            }
+            UpdateProjectDevelopers(selectedDevelopers, projectToUpdate);
+            PopulateAssignedDeveloperData(projectToUpdate);
+            return RedirectToAction(nameof(Index));
+        }
+
+        private void UpdateProjectDevelopers(string[] selectedDevelopers, Project projectToUpdate)
+        {
+            if (selectedDevelopers == null)
+            {
+                projectToUpdate.Developers = new List<DeveloperAssignment>();
+                return;
+            }
+            
+            var selectedDevelopersHs = new HashSet<string>(selectedDevelopers);
+            var projectDevelopers = new HashSet<int>(
+                projectToUpdate.Developers.Select(d => d.Developer.ID));
+            foreach (var developer in _context.Developers)
+            {
+                if (selectedDevelopersHs.Contains(developer.ID.ToString()))
+                {
+                    if (!projectDevelopers.Contains(developer.ID))
                     {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
+                        projectToUpdate.Developers.Add(new DeveloperAssignment()
+                        {
+                            ProjectID = projectToUpdate.ID,
+                            DeveloperID = developer.ID
+                        });
                     }
                 }
-
-                return RedirectToAction(nameof(Index));
+                else
+                {
+                    if (projectDevelopers.Contains(developer.ID))
+                    {
+                        var developerToRemove = projectToUpdate.Developers.FirstOrDefault(
+                            d => d.DeveloperID == developer.ID);
+                        _context.Remove(developerToRemove!);
+                    }
+                }
             }
-
-            return View(project);
         }
 
         // GET: Project/Delete/5

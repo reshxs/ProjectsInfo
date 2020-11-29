@@ -27,16 +27,21 @@ namespace ProjectsInfo.Data
                 .IsRequired();
 
             //One-to-Many (projectAssigment <- month)
-            modelBuilder.Entity<ProjectAssigment>()
+            modelBuilder.Entity<DeveloperAssignment>()
                 .HasMany(projectAssigment => projectAssigment.Months)
-                .WithOne(month => month.ProjectAssigment)
+                .WithOne(month => month.DeveloperAssignment)
                 .IsRequired();
+
+            //Primary key for DeveloperAssignment
+            modelBuilder.Entity<DeveloperAssignment>()
+                .HasKey(d => new {d.ProjectID, d.DeveloperID});
+
         }
 
         public DbSet<Project> Projects { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Developer> Developers { get; set; }
-        public DbSet<ProjectAssigment> ProjectAssigments { get; set; }
+        public DbSet<DeveloperAssignment> ProjectAssigments { get; set; }
         public DbSet<Month> Months { get; set; }
     }
 }

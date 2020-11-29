@@ -6,6 +6,7 @@ namespace ProjectsInfo.Models
 {
     public class Project
     {        
+        // Primary key
         public int ID { get; set; }
 
         [Display(Name = "Название")]
@@ -45,6 +46,6 @@ namespace ProjectsInfo.Models
         }
 
         [Display(Name = "Разработчики")]
-        public ICollection<ProjectAssigment> Developers { get; set; }
+        public ICollection<DeveloperAssignment> Developers { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ProjectsInfo.Migrations
 {
-    public partial class Inital : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -61,14 +61,12 @@ namespace ProjectsInfo.Migrations
                 name: "ProjectAssigments",
                 columns: table => new
                 {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ProjectID = table.Column<int>(nullable: false),
                     DeveloperID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProjectAssigments", x => x.ID);
+                    table.PrimaryKey("PK_ProjectAssigments", x => new { x.ProjectID, x.DeveloperID });
                     table.ForeignKey(
                         name: "FK_ProjectAssigments_Developers_DeveloperID",
                         column: x => x.DeveloperID,
@@ -91,33 +89,29 @@ namespace ProjectsInfo.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Date = table.Column<DateTime>(nullable: false),
                     Hours = table.Column<int>(nullable: false),
-                    ProjectAssigmentID = table.Column<int>(nullable: false)
+                    DeveloperAssignmentProjectID = table.Column<int>(nullable: false),
+                    DeveloperAssignmentDeveloperID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Months", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Months_ProjectAssigments_ProjectAssigmentID",
-                        column: x => x.ProjectAssigmentID,
+                        name: "FK_Months_ProjectAssigments_DeveloperAssignmentProjectID_Devel~",
+                        columns: x => new { x.DeveloperAssignmentProjectID, x.DeveloperAssignmentDeveloperID },
                         principalTable: "ProjectAssigments",
-                        principalColumn: "ID",
+                        principalColumns: new[] { "ProjectID", "DeveloperID" },
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Months_ProjectAssigmentID",
+                name: "IX_Months_DeveloperAssignmentProjectID_DeveloperAssignmentDeve~",
                 table: "Months",
-                column: "ProjectAssigmentID");
+                columns: new[] { "DeveloperAssignmentProjectID", "DeveloperAssignmentDeveloperID" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProjectAssigments_DeveloperID",
                 table: "ProjectAssigments",
                 column: "DeveloperID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProjectAssigments_ProjectID",
-                table: "ProjectAssigments",
-                column: "ProjectID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -37,6 +37,21 @@ namespace ProjectsInfo.Migrations
                     b.ToTable("Developers");
                 });
 
+            modelBuilder.Entity("ProjectsInfo.Models.DeveloperAssignment", b =>
+                {
+                    b.Property<int>("ProjectID")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("DeveloperID")
+                        .HasColumnType("integer");
+
+                    b.HasKey("ProjectID", "DeveloperID");
+
+                    b.HasIndex("DeveloperID");
+
+                    b.ToTable("ProjectAssigments");
+                });
+
             modelBuilder.Entity("ProjectsInfo.Models.Month", b =>
                 {
                     b.Property<int>("ID")
@@ -47,15 +62,18 @@ namespace ProjectsInfo.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int>("Hours")
+                    b.Property<int>("DeveloperAssignmentDeveloperID")
                         .HasColumnType("integer");
 
-                    b.Property<int>("ProjectAssigmentID")
+                    b.Property<int>("DeveloperAssignmentProjectID")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Hours")
                         .HasColumnType("integer");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("ProjectAssigmentID");
+                    b.HasIndex("DeveloperAssignmentProjectID", "DeveloperAssignmentDeveloperID");
 
                     b.ToTable("Months");
                 });
@@ -93,28 +111,6 @@ namespace ProjectsInfo.Migrations
                     b.ToTable("Projects");
                 });
 
-            modelBuilder.Entity("ProjectsInfo.Models.ProjectAssigment", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("DeveloperID")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ProjectID")
-                        .HasColumnType("integer");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("DeveloperID");
-
-                    b.HasIndex("ProjectID");
-
-                    b.ToTable("ProjectAssigments");
-                });
-
             modelBuilder.Entity("ProjectsInfo.Models.User", b =>
                 {
                     b.Property<int>("ID")
@@ -139,16 +135,7 @@ namespace ProjectsInfo.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("ProjectsInfo.Models.Month", b =>
-                {
-                    b.HasOne("ProjectsInfo.Models.ProjectAssigment", "ProjectAssigment")
-                        .WithMany("Months")
-                        .HasForeignKey("ProjectAssigmentID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ProjectsInfo.Models.ProjectAssigment", b =>
+            modelBuilder.Entity("ProjectsInfo.Models.DeveloperAssignment", b =>
                 {
                     b.HasOne("ProjectsInfo.Models.Developer", "Developer")
                         .WithMany("Projects")
@@ -159,6 +146,15 @@ namespace ProjectsInfo.Migrations
                     b.HasOne("ProjectsInfo.Models.Project", "Project")
                         .WithMany("Developers")
                         .HasForeignKey("ProjectID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ProjectsInfo.Models.Month", b =>
+                {
+                    b.HasOne("ProjectsInfo.Models.DeveloperAssignment", "DeveloperAssignment")
+                        .WithMany("Months")
+                        .HasForeignKey("DeveloperAssignmentProjectID", "DeveloperAssignmentDeveloperID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
