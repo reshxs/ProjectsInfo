@@ -36,16 +36,11 @@ namespace ProjectsInfo.Models
 
         [DataType(DataType.Currency)]
         [Display(Name = "Стоимость")]
-        public decimal Price
-        {
-            get
-            {
-                return TestingHours * TestingHourPrice
-                    + ExpectedHours * DevelopmentHourPrice;
-            }
-        }
+        public decimal Price =>
+            TestingHours * TestingHourPrice
+            + ExpectedHours * DevelopmentHourPrice;
 
         [Display(Name = "Разработчики")]
-        public ICollection<DeveloperAssignment> Developers { get; set; }
+        public ICollection<DeveloperAssignment> DeveloperAssignments { get; set; }
     }
 }

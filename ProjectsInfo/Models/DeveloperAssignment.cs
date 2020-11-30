@@ -17,18 +17,6 @@ namespace ProjectsInfo.Models
         [Display(Name = "Месяцы работы")]
         public ICollection<Month> Months { get; set; }
 
-        public int Total
-        {
-            get
-            {
-                var total = 0;
-                if (Months != null)
-                {
-                    total += Months.Sum(month => month.Hours);
-                }
-
-                return total;
-            }
-        }
+        public int Total => Months?.Sum(month => month.Hours) ?? 0;
     }
 }

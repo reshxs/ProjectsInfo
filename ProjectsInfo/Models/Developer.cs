@@ -22,12 +22,9 @@ namespace ProjectsInfo.Models
         public decimal Salary { get; set; }
 
         [Display(Name = "Стоимость часа работы")]
-        public decimal HourPrice { get
-            {
-                return (Salary / 160) * Multiplier + GenralExpences;
-            }}
+        public decimal HourPrice => (Salary / 160) * Multiplier + GenralExpences;
 
         [Display(Name = "Проекты")]
-        public ICollection<DeveloperAssignment> Projects { get; set; }
+        public ICollection<DeveloperAssignment> DeveloperAssignments { get; set; }
     }
 }

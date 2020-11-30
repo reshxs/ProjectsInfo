@@ -49,7 +49,7 @@ namespace ProjectsInfo.Migrations
 
                     b.HasIndex("DeveloperID");
 
-                    b.ToTable("ProjectAssigments");
+                    b.ToTable("DeveloperAssignments");
                 });
 
             modelBuilder.Entity("ProjectsInfo.Models.Month", b =>
@@ -141,13 +141,13 @@ namespace ProjectsInfo.Migrations
             modelBuilder.Entity("ProjectsInfo.Models.DeveloperAssignment", b =>
                 {
                     b.HasOne("ProjectsInfo.Models.Developer", "Developer")
-                        .WithMany("Projects")
+                        .WithMany("DeveloperAssignments")
                         .HasForeignKey("DeveloperID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ProjectsInfo.Models.Project", "Project")
-                        .WithMany("Developers")
+                        .WithMany("DeveloperAssignments")
                         .HasForeignKey("ProjectID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

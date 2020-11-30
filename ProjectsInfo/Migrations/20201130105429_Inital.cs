@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ProjectsInfo.Migrations
 {
-    public partial class Initial : Migration
+    public partial class Inital : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -58,7 +58,7 @@ namespace ProjectsInfo.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProjectAssigments",
+                name: "DeveloperAssignments",
                 columns: table => new
                 {
                     ProjectID = table.Column<int>(nullable: false),
@@ -66,15 +66,15 @@ namespace ProjectsInfo.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProjectAssigments", x => new { x.ProjectID, x.DeveloperID });
+                    table.PrimaryKey("PK_DeveloperAssignments", x => new { x.ProjectID, x.DeveloperID });
                     table.ForeignKey(
-                        name: "FK_ProjectAssigments_Developers_DeveloperID",
+                        name: "FK_DeveloperAssignments_Developers_DeveloperID",
                         column: x => x.DeveloperID,
                         principalTable: "Developers",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProjectAssigments_Projects_ProjectID",
+                        name: "FK_DeveloperAssignments_Projects_ProjectID",
                         column: x => x.ProjectID,
                         principalTable: "Projects",
                         principalColumn: "ID",
@@ -97,22 +97,22 @@ namespace ProjectsInfo.Migrations
                 {
                     table.PrimaryKey("PK_Months", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Months_ProjectAssigments_DeveloperAssignmentProjectID_Devel~",
+                        name: "FK_Months_DeveloperAssignments_DeveloperAssignmentProjectID_De~",
                         columns: x => new { x.DeveloperAssignmentProjectID, x.DeveloperAssignmentDeveloperID },
-                        principalTable: "ProjectAssigments",
+                        principalTable: "DeveloperAssignments",
                         principalColumns: new[] { "ProjectID", "DeveloperID" },
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_DeveloperAssignments_DeveloperID",
+                table: "DeveloperAssignments",
+                column: "DeveloperID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Months_DeveloperAssignmentProjectID_DeveloperAssignmentDeve~",
                 table: "Months",
                 columns: new[] { "DeveloperAssignmentProjectID", "DeveloperAssignmentDeveloperID" });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProjectAssigments_DeveloperID",
-                table: "ProjectAssigments",
-                column: "DeveloperID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -124,7 +124,7 @@ namespace ProjectsInfo.Migrations
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "ProjectAssigments");
+                name: "DeveloperAssignments");
 
             migrationBuilder.DropTable(
                 name: "Developers");

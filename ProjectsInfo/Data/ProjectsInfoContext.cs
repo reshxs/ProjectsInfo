@@ -16,13 +16,13 @@ namespace ProjectsInfo.Data
         {
             //One-to-Many (project <- projectAssigment)
             modelBuilder.Entity<Project>()
-                .HasMany(project => project.Developers)
+                .HasMany(project => project.DeveloperAssignments)
                 .WithOne(projectAssigment => projectAssigment.Project)
                 .IsRequired();
 
             //One-to-Many (developer <- projectAssigment)
             modelBuilder.Entity<Developer>()
-                .HasMany(developer => developer.Projects)
+                .HasMany(developer => developer.DeveloperAssignments)
                 .WithOne(projectAssigment => projectAssigment.Developer)
                 .IsRequired();
             
@@ -40,7 +40,7 @@ namespace ProjectsInfo.Data
         public DbSet<Project> Projects { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Developer> Developers { get; set; }
-        public DbSet<DeveloperAssignment> ProjectAssigments { get; set; }
+        public DbSet<DeveloperAssignment> DeveloperAssignments { get; set; }
         public DbSet<Month> Months { get; set; }
     }
 }

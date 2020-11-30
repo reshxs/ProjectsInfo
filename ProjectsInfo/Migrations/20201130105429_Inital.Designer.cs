@@ -10,8 +10,8 @@ using ProjectsInfo.Data;
 namespace ProjectsInfo.Migrations
 {
     [DbContext(typeof(ProjectsInfoContext))]
-    [Migration("20201129124858_Initial")]
-    partial class Initial
+    [Migration("20201130105429_Inital")]
+    partial class Inital
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -51,7 +51,7 @@ namespace ProjectsInfo.Migrations
 
                     b.HasIndex("DeveloperID");
 
-                    b.ToTable("ProjectAssigments");
+                    b.ToTable("DeveloperAssignments");
                 });
 
             modelBuilder.Entity("ProjectsInfo.Models.Month", b =>
@@ -143,13 +143,13 @@ namespace ProjectsInfo.Migrations
             modelBuilder.Entity("ProjectsInfo.Models.DeveloperAssignment", b =>
                 {
                     b.HasOne("ProjectsInfo.Models.Developer", "Developer")
-                        .WithMany("Projects")
+                        .WithMany("DeveloperAssignments")
                         .HasForeignKey("DeveloperID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ProjectsInfo.Models.Project", "Project")
-                        .WithMany("Developers")
+                        .WithMany("DeveloperAssignments")
                         .HasForeignKey("ProjectID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

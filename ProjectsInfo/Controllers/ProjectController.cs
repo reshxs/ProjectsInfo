@@ -128,7 +128,7 @@ namespace ProjectsInfo.Controllers
             }
 
             var project = await _context.Projects
-                .Include(p => p.Developers)
+                .Include(p => p.DeveloperAssignments)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.ID == id);
 
@@ -145,7 +145,7 @@ namespace ProjectsInfo.Controllers
         {
             var allDevelopers = _context.Developers;
             var projectDevelopers = new HashSet<int>(
-                project.Developers.Select(d => d.DeveloperID));
+                project.DeveloperAssignments.Select(d => d.DeveloperID));
             var viewModel = new List<AssignedDeveloperData>();
             
             foreach (var developer in allDevelopers)
@@ -174,7 +174,7 @@ namespace ProjectsInfo.Controllers
             }
 
             var projectToUpdate = await _context.Projects
-                .Include(p => p.Developers)
+                .Include(p => p.DeveloperAssignments)
                 .ThenInclude(p => p.Developer)
                 .FirstOrDefaultAsync(m => m.ID == id);
             
@@ -206,20 +206,20 @@ namespace ProjectsInfo.Controllers
         {
             if (selectedDevelopers == null)
             {
-                projectToUpdate.Developers = new List<DeveloperAssignment>();
+                projectToUpdate.DeveloperAssignments = new List<DeveloperAssignment>();
                 return;
             }
             
             var selectedDevelopersHs = new HashSet<string>(selectedDevelopers);
             var projectDevelopers = new HashSet<int>(
-                projectToUpdate.Developers.Select(d => d.Developer.ID));
+                projectToUpdate.DeveloperAssignments.Select(d => d.Developer.ID));
             foreach (var developer in _context.Developers)
             {
                 if (selectedDevelopersHs.Contains(developer.ID.ToString()))
                 {
                     if (!projectDevelopers.Contains(developer.ID))
                     {
-                        projectToUpdate.Developers.Add(new DeveloperAssignment()
+                        projectToUpdate.DeveloperAssignments.Add(new DeveloperAssignment()
                         {
                             ProjectID = projectToUpdate.ID,
                             DeveloperID = developer.ID
@@ -230,7 +230,7 @@ namespace ProjectsInfo.Controllers
                 {
                     if (projectDevelopers.Contains(developer.ID))
                     {
-                        var developerToRemove = projectToUpdate.Developers.FirstOrDefault(
+                        var developerToRemove = projectToUpdate.DeveloperAssignments.FirstOrDefault(
                             d => d.DeveloperID == developer.ID);
                         _context.Remove(developerToRemove!);
                     }
