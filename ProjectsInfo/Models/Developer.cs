@@ -11,6 +11,7 @@ namespace ProjectsInfo.Models
         // Повышающий коэффициент
         private const decimal Multiplier = 2.5m;
 
+        // Primary key
         public int ID { get; set; }
 
         [Display(Name = "ФИО")]
@@ -21,12 +22,9 @@ namespace ProjectsInfo.Models
         public decimal Salary { get; set; }
 
         [Display(Name = "Стоимость часа работы")]
-        public decimal HourPrice { get
-            {
-                return (Salary / 160) * Multiplier + GenralExpences;
-            }}
+        public decimal HourPrice => (Salary / 160) * Multiplier + GenralExpences;
 
         [Display(Name = "Проекты")]
-        public ICollection<ProjectAssigment> Projects { get; set; }
+        public ICollection<DeveloperAssignment> DeveloperAssignments { get; set; }
     }
 }

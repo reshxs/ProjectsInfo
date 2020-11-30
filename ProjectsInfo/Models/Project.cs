@@ -6,6 +6,7 @@ namespace ProjectsInfo.Models
 {
     public class Project
     {        
+        // Primary key
         public int ID { get; set; }
 
         [Display(Name = "Название")]
@@ -35,16 +36,11 @@ namespace ProjectsInfo.Models
 
         [DataType(DataType.Currency)]
         [Display(Name = "Стоимость")]
-        public decimal Price
-        {
-            get
-            {
-                return TestingHours * TestingHourPrice
-                    + ExpectedHours * DevelopmentHourPrice;
-            }
-        }
+        public decimal Price =>
+            TestingHours * TestingHourPrice
+            + ExpectedHours * DevelopmentHourPrice;
 
         [Display(Name = "Разработчики")]
-        public ICollection<ProjectAssigment> Developers { get; set; }
+        public ICollection<DeveloperAssignment> DeveloperAssignments { get; set; }
     }
 }

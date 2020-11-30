@@ -58,25 +58,23 @@ namespace ProjectsInfo.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProjectAssigments",
+                name: "DeveloperAssignments",
                 columns: table => new
                 {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ProjectID = table.Column<int>(nullable: false),
                     DeveloperID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProjectAssigments", x => x.ID);
+                    table.PrimaryKey("PK_DeveloperAssignments", x => new { x.ProjectID, x.DeveloperID });
                     table.ForeignKey(
-                        name: "FK_ProjectAssigments_Developers_DeveloperID",
+                        name: "FK_DeveloperAssignments_Developers_DeveloperID",
                         column: x => x.DeveloperID,
                         principalTable: "Developers",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProjectAssigments_Projects_ProjectID",
+                        name: "FK_DeveloperAssignments_Projects_ProjectID",
                         column: x => x.ProjectID,
                         principalTable: "Projects",
                         principalColumn: "ID",
@@ -89,35 +87,32 @@ namespace ProjectsInfo.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    DeveloperAssignmentID = table.Column<int>(nullable: false),
+                    DeveloperAssignmentProjectID = table.Column<int>(nullable: false),
+                    DeveloperAssignmentDeveloperID = table.Column<int>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
-                    Hours = table.Column<int>(nullable: false),
-                    ProjectAssigmentID = table.Column<int>(nullable: false)
+                    Hours = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Months", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Months_ProjectAssigments_ProjectAssigmentID",
-                        column: x => x.ProjectAssigmentID,
-                        principalTable: "ProjectAssigments",
-                        principalColumn: "ID",
+                        name: "FK_Months_DeveloperAssignments_DeveloperAssignmentProjectID_De~",
+                        columns: x => new { x.DeveloperAssignmentProjectID, x.DeveloperAssignmentDeveloperID },
+                        principalTable: "DeveloperAssignments",
+                        principalColumns: new[] { "ProjectID", "DeveloperID" },
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Months_ProjectAssigmentID",
-                table: "Months",
-                column: "ProjectAssigmentID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ProjectAssigments_DeveloperID",
-                table: "ProjectAssigments",
+                name: "IX_DeveloperAssignments_DeveloperID",
+                table: "DeveloperAssignments",
                 column: "DeveloperID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProjectAssigments_ProjectID",
-                table: "ProjectAssigments",
-                column: "ProjectID");
+                name: "IX_Months_DeveloperAssignmentProjectID_DeveloperAssignmentDeve~",
+                table: "Months",
+                columns: new[] { "DeveloperAssignmentProjectID", "DeveloperAssignmentDeveloperID" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -129,7 +124,7 @@ namespace ProjectsInfo.Migrations
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "ProjectAssigments");
+                name: "DeveloperAssignments");
 
             migrationBuilder.DropTable(
                 name: "Developers");
