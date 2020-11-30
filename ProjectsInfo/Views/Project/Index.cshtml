@@ -1,11 +1,11 @@
-@model IEnumerable<ProjectsInfo.Models.Project>
+﻿@model IEnumerable<ProjectsInfo.Models.Project>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Проекты</h1>
 
+<!--
 <p>
     <a asp-action="Create">Добавить проект</a>
 </p>
@@ -51,3 +51,90 @@
 }
     </tbody>
 </table>
+-->
+<!DOCTYPE html>
+<html lang="en" style="background: #eef5f9">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/assets/images/favicon.png">
+    <title>Проекты</title>
+    <link href="~/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/css/style.css" rel="stylesheet">
+    <link href="~/css/colors/blue.css" id="theme" rel="stylesheet">
+</head>
+<body style="background: #eef5f9">
+    <div class="container-fluid">
+        <div>
+            <button type="button" class="btn waves-effect waves-light btn-info" data-toggle="modal" data-target="#exampleModalAdd" style="margin: 2% 0 30px 83%;width: 17%">
+                <a asp-action="Create" style="color:white">Добавить проект</a>
+            </button>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div><h4 class="card-title">НАЗВАНИЕ ПРОЕКТА</h4></div>
+                <!-- -->
+                <div style="height: 200px; overflow: auto;">
+                    <div style="float: left;width: 60%;height: 100%">Описание проекта</div>
+                    <div style="float: right;width:40%;height: 100%;padding-left:20px">
+                        <div style="height: 20%;width: 40%;margin-left: 60%;margin-bottom: 5%">
+                            <button type="button" class="btn waves-effect waves-light btn-block btn-danger" data-toggle="modal" data-target="#exampleModal1">
+                                Редактировать
+                            </button>
+                        </div>
+                        <div style="height: 15%">
+                            <span style="height: 80%" class="label label-success">
+                                <h5 style="color: white">Менеджер</h5>
+                            </span>
+                        </div>
+                        <div style="height: 15%">
+                            <span style="height: 80%" class="label label-warning">
+                                <h5 style="color: white">Стоимость</h5>
+                            </span>
+                        </div>
+                        <div style="height: 15%">
+                            <span style="height: 80% " class="label label-danger">
+                                <h5 style="color: white">Дата начала - дата конца</h5>
+                            </span>
+                        </div>
+                        <div style="height: 15%">
+                            <span style="height: 80% " class="label label-danger">
+                                <h5 style="color: white">До конца проекта осталось</h5>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer style="background: #eef5f9;border-top: 0">
+        <div style="margin:2%">
+            <nav aria-label="Page navigation example" class="m-t-40">
+                <ul class="pagination">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">Пред</a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">След</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </footer>
+
+    <script src="~/assets/plugins/jquery/jquery.min.js"></script>
+    <script src="~/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/js/waves.js"></script>
+    <script src="~/assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
+    <script src="~/assets/plugins/sparkline/jquery.sparkline.min.js"></script>
+    <script src="~/js/custom.min.js"></script>
+    <script src="~/js/jasny-bootstrap.js"></script>
+    <script src="~/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
+</body>
+</html>
