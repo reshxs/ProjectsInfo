@@ -268,8 +268,7 @@ namespace ProjectsInfo.Controllers
                         Hours = 0,
                         DeveloperAssignmentID = developerAssignment.ID,
                         DeveloperAssignment = developerAssignment
-                    }; 
-                    _context.Months.Add(newMonth);
+                    };
                     developerAssignment.Months.Add(newMonth);
                 }
 
