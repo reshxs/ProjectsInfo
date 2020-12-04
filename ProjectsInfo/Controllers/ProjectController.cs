@@ -200,7 +200,7 @@ namespace ProjectsInfo.Controllers
             }
             UpdateProjectDevelopers(selectedDevelopers, projectToUpdate);
             PopulateAssignedDeveloperData(projectToUpdate);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(EditDevelopers));
         }
 
         private void UpdateProjectDevelopers(string[] selectedDevelopers, Project projectToUpdate)
