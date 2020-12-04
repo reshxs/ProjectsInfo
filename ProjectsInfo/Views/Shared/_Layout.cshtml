@@ -4,9 +4,6 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <link rel="icon" type="image/png" sizes="16x16" href="~/assets/images/favicon.png" />
     <title>@ViewData["Title"] - Шаблон</title>
     <link href="~/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/css/style.css" rel="stylesheet" />
@@ -23,7 +20,9 @@
                     </ul>
                     <ul class="navbar-nav my-lg-0">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../assets/images/users/1.jpg" alt="user" class="profile-pic"></a>
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="~/assets/images/users/1.jpg" alt="user" class="profile-pic">
+                            </a>
                             <div class="dropdown-menu dropdown-menu-right scale-up">
                                 <ul class="dropdown-user">
                                     <li>
@@ -49,9 +48,6 @@
     <div>
         @RenderBody()
     </div>
-    <footer class="footer">
-        © 2020 "66bit"
-    </footer>
 
     <script src="~/assets/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
@@ -76,5 +72,6 @@
     <!-- Style switcher -->
     <!-- ============================================================== -->
     <script src="~/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
