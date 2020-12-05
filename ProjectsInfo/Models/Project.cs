@@ -44,7 +44,10 @@ namespace ProjectsInfo.Models
         [Display(Name = "Разработчики")]
         public ICollection<DeveloperAssignment> DeveloperAssignments { get; set; }
 
+        [DataType(DataType.Currency)]
+        [Display(Name = "Фактическая цена")]
         public decimal ActualPrice => 
-            DeveloperAssignments.Sum(developer => developer.Total * developer.Developer.HourPrice);
+            DeveloperAssignments.Sum(developerAssignment 
+                => developerAssignment.TotalHours * developerAssignment.Developer.HourPrice);
     }
 }
