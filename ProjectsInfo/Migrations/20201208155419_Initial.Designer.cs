@@ -10,8 +10,8 @@ using ProjectsInfo.Data;
 namespace ProjectsInfo.Migrations
 {
     [DbContext(typeof(ProjectsInfoContext))]
-    [Migration("20201130105429_Inital")]
-    partial class Inital
+    [Migration("20201208155419_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -54,6 +54,24 @@ namespace ProjectsInfo.Migrations
                     b.ToTable("DeveloperAssignments");
                 });
 
+            modelBuilder.Entity("ProjectsInfo.Models.Manager", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("Salary")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Managers");
+                });
+
             modelBuilder.Entity("ProjectsInfo.Models.Month", b =>
                 {
                     b.Property<int>("ID")
@@ -85,10 +103,8 @@ namespace ProjectsInfo.Migrations
 
             modelBuilder.Entity("ProjectsInfo.Models.Project", b =>
                 {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                    b.Property<int?>("ManagerID")
+                        .HasColumnType("integer");
 
                     b.Property<decimal>("DevelopmentHourPrice")
                         .HasColumnType("numeric");
@@ -97,6 +113,9 @@ namespace ProjectsInfo.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<int>("ExpectedHours")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ID")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("StartDate")
@@ -111,7 +130,7 @@ namespace ProjectsInfo.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("text");
 
-                    b.HasKey("ID");
+                    b.HasKey("ManagerID");
 
                     b.ToTable("Projects");
                 });
@@ -160,6 +179,15 @@ namespace ProjectsInfo.Migrations
                     b.HasOne("ProjectsInfo.Models.DeveloperAssignment", "DeveloperAssignment")
                         .WithMany("Months")
                         .HasForeignKey("DeveloperAssignmentProjectID", "DeveloperAssignmentDeveloperID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ProjectsInfo.Models.Project", b =>
+                {
+                    b.HasOne("ProjectsInfo.Models.Manager", "Manager")
+                        .WithMany("Projects")
+                        .HasForeignKey("ManagerID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
