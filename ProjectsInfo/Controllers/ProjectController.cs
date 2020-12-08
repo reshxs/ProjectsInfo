@@ -9,11 +9,11 @@ using ProjectsInfo.Models;
 
 namespace ProjectsInfo.Controllers
 {
-    public class ProjectsController : Controller
+    public class ProjectController : Controller
     {
         private readonly ProjectsInfoContext _context;
 
-        public ProjectsController(ProjectsInfoContext context)
+        public ProjectController(ProjectsInfoContext context)
         {
             _context = context;
         }
