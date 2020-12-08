@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace ProjectsInfo.Models
 {
@@ -42,5 +43,18 @@ namespace ProjectsInfo.Models
 
         [Display(Name = "Разработчики")]
         public ICollection<DeveloperAssignment> DeveloperAssignments { get; set; }
+
+        [DataType(DataType.Currency)]
+        [Display(Name = "Фактическая цена")]
+        public decimal ActualPrice
+        {
+            get
+            {
+                if (DeveloperAssignments != null)
+                    return DeveloperAssignments.Sum(developerAssignment
+                        => developerAssignment.TotalHours * developerAssignment.Developer.HourPrice);
+                return 0;
+            }
+        }
     }
 }

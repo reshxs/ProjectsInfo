@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -199,7 +200,7 @@ namespace ProjectsInfo.Controllers
             }
             UpdateProjectDevelopers(selectedDevelopers, projectToUpdate);
             PopulateAssignedDeveloperData(projectToUpdate);
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(EditDevelopers));
         }
 
         private void UpdateProjectDevelopers(string[] selectedDevelopers, Project projectToUpdate)
@@ -219,11 +220,15 @@ namespace ProjectsInfo.Controllers
                 {
                     if (!projectDevelopers.Contains(developer.ID))
                     {
-                        projectToUpdate.DeveloperAssignments.Add(new DeveloperAssignment()
+                        var newDeveloper = new DeveloperAssignment()
                         {
                             ProjectID = projectToUpdate.ID,
-                            DeveloperID = developer.ID
-                        });
+                            DeveloperID = developer.ID,
+                            Project = projectToUpdate,
+                            Developer = developer,
+                        };
+                        projectToUpdate.DeveloperAssignments.Add(newDeveloper);
+                        UpdateMonthsForDeveloper(newDeveloper);
                     }
                 }
                 else
@@ -234,6 +239,44 @@ namespace ProjectsInfo.Controllers
                             d => d.DeveloperID == developer.ID);
                         _context.Remove(developerToRemove!);
                     }
+                }
+            }
+        }
+
+        private void UpdateMonthsForDeveloper(DeveloperAssignment developerAssignment)
+        {
+            var startDate = developerAssignment.Project.StartDate;
+            var startMonth = startDate.Month;
+            var startYear = startDate.Year;
+            var currentMonth = DateTime.Now.Month;
+            var currentYear = DateTime.Now.Year;
+
+            developerAssignment.Months ??= new List<Month>();
+            var developerMonths = developerAssignment.Months
+                .Select(month => month.Date)
+                .ToHashSet();
+            
+            //TODO: Добавляется на один месяц меньше, чем надо!
+            while (startMonth <= currentMonth && startYear <= currentYear)
+            {
+                var newDate = DateTime.Parse($"{startYear}-{startMonth}-1");
+                if (!developerMonths.Contains(newDate))
+                {
+                    var newMonth = new Month()
+                    {
+                        Date = newDate,
+                        Hours = 0,
+                        DeveloperAssignmentID = developerAssignment.ID,
+                        DeveloperAssignment = developerAssignment
+                    };
+                    developerAssignment.Months.Add(newMonth);
+                }
+
+                startMonth++;
+                if (startMonth > 12)
+                {
+                    startYear++;
+                    startMonth = 1;
                 }
             }
         }
