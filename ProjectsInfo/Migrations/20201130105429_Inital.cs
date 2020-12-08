@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ProjectsInfo.Migrations
 {
-    public partial class Initial : Migration
+    public partial class Inital : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -23,17 +23,22 @@ namespace ProjectsInfo.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Managers",
+                name: "Projects",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(nullable: true),
-                    Salary = table.Column<decimal>(nullable: false)
+                    Title = table.Column<string>(nullable: true),
+                    StartDate = table.Column<DateTime>(nullable: false),
+                    EndDate = table.Column<DateTime>(nullable: false),
+                    ExpectedHours = table.Column<int>(nullable: false),
+                    DevelopmentHourPrice = table.Column<decimal>(nullable: false),
+                    TestingHours = table.Column<int>(nullable: false),
+                    TestingHourPrice = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Managers", x => x.ID);
+                    table.PrimaryKey("PK_Projects", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -50,31 +55,6 @@ namespace ProjectsInfo.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Projects",
-                columns: table => new
-                {
-                    ManagerID = table.Column<int>(nullable: false),
-                    ID = table.Column<int>(nullable: false),
-                    Title = table.Column<string>(nullable: true),
-                    StartDate = table.Column<DateTime>(nullable: false),
-                    EndDate = table.Column<DateTime>(nullable: false),
-                    ExpectedHours = table.Column<int>(nullable: false),
-                    DevelopmentHourPrice = table.Column<decimal>(nullable: false),
-                    TestingHours = table.Column<int>(nullable: false),
-                    TestingHourPrice = table.Column<decimal>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Projects", x => x.ManagerID);
-                    table.ForeignKey(
-                        name: "FK_Projects_Managers_ManagerID",
-                        column: x => x.ManagerID,
-                        principalTable: "Managers",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -97,7 +77,7 @@ namespace ProjectsInfo.Migrations
                         name: "FK_DeveloperAssignments_Projects_ProjectID",
                         column: x => x.ProjectID,
                         principalTable: "Projects",
-                        principalColumn: "ManagerID",
+                        principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -151,9 +131,6 @@ namespace ProjectsInfo.Migrations
 
             migrationBuilder.DropTable(
                 name: "Projects");
-
-            migrationBuilder.DropTable(
-                name: "Managers");
         }
     }
 }

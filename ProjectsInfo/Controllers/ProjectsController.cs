@@ -256,6 +256,7 @@ namespace ProjectsInfo.Controllers
                 .Select(month => month.Date)
                 .ToHashSet();
             
+            //TODO: Добавляется на один месяц меньше, чем надо!
             while (startMonth <= currentMonth && startYear <= currentYear)
             {
                 var newDate = DateTime.Parse($"{startYear}-{startMonth}-1");

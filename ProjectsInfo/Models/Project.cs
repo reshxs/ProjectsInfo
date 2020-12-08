@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 namespace ProjectsInfo.Models
@@ -47,24 +46,8 @@ namespace ProjectsInfo.Models
 
         [DataType(DataType.Currency)]
         [Display(Name = "Фактическая цена")]
-        public decimal ActualPrice
-        {
-            get
-            {
-                if (DeveloperAssignments == null)
-                {
-                    return 0;
-                }
-                return DeveloperAssignments.Sum(developerAssignment
-                    => developerAssignment.TotalHours * developerAssignment.Developer.HourPrice);
-            }
-        }
-        
-        //TODO fix not-null foreign key bug
-        [Key, ForeignKey("Manager")] 
-        public int? ManagerID { get; set; }
-        
-        [Display(Name="Менеджер")]
-        public Manager Manager { get; set; }
+        public decimal ActualPrice => 
+            DeveloperAssignments.Sum(developerAssignment 
+                => developerAssignment.TotalHours * developerAssignment.Developer.HourPrice);
     }
 }

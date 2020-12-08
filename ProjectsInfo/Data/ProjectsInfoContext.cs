@@ -35,19 +35,12 @@ namespace ProjectsInfo.Data
                 .HasMany(projectAssigment => projectAssigment.Months)
                 .WithOne(month => month.DeveloperAssignment)
                 .IsRequired();
-
-            //One-to-Many (manager <- project)
-            modelBuilder.Entity<Manager>()
-                .HasMany(manager => manager.Projects)
-                .WithOne(project => project.Manager)
-                .IsRequired();
         }
 
         public DbSet<Project> Projects { get; set; }
-        public DbSet<Developer> Developers { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Developer> Developers { get; set; }
         public DbSet<DeveloperAssignment> DeveloperAssignments { get; set; }
         public DbSet<Month> Months { get; set; }
-        public DbSet<Manager> Managers { get; set; }
     }
 }
