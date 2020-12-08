@@ -1,53 +1,82 @@
-@model IEnumerable<ProjectsInfo.Models.Project>
+﻿@model IEnumerable<ProjectsInfo.Models.Project>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Проекты</h1>
+<!--<a asp-action="Details" asp-route-id="project.ID">Details</a>
+<a asp-action="Delete" asp-route-id="project.ID">Delete</a>-->
 
-<p>
-    <a asp-action="Create">Добавить проект</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EndDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<!DOCTYPE html>
+<html lang="en" style="background: #eef5f9">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/assets/images/favicon.png">
+    <title>Проекты</title>
+    <link href="~/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/css/style.css" rel="stylesheet">
+    <link href="~/css/colors/blue.css" id="theme" rel="stylesheet">
+</head>
+<body style="background: #eef5f9">
+    <div class="container-fluid">
+        <div>
+            <button type="button" class="btn waves-effect waves-light btn-info" style="margin: 2% 0 30px 83%;width: 17%">
+                <a asp-action="Create" style="color:white">Добавить проект</a>
+            </button>
+        </div>
+        @foreach (var project in Model)
+        {
+            <div class="card">
+                <div class="card-body">
+                    <div><h4 class="card-title"> @Html.DisplayFor(modelItem => project.Title)</h4></div>
+                    <div style="height: 200px; overflow: auto;">
+                        <!--<div style="float: left;width: 60%;height: 100%">Описание проекта</div>-->
+                        <div style="float: right;width:40%;height: 100%;padding-left:20px">
+                            <div style="height: 20%;width: 40%;margin-left: 60%;margin-bottom: 5%">
+                                <button type="button" class="btn waves-effect waves-light btn-block btn-danger">
+                                    <a asp-action="Edit" asp-route-id="@project.ID" style="color:white">Редактировать</a>
+                                </button>
+                            </div>
+                            <div style="height: 15%">
+                                <span style="height: 80%;width:42%" class="label label-success">
+                                    <h5 style="color: white">Менеджер</h5>
+                                </span>
+                            </div>
+                            <div style="height: 15%">
+                                <span style="height: 80%;width:42%" class="label label-warning">
+                                    <h5 style="color: white">Стоимость</h5>
+                                </span>
+                                @Html.DisplayFor(modelItem => project.Price)
+                            </div>
+                            <div style="height: 15%">
+                                <span style="height: 80%;width:42% " class="label label-danger">
+                                    <h5 style="color: white">Дата начала - дата конца</h5>
+                                </span>
+                                @Html.DisplayFor(modelItem => project.StartDate) - @Html.DisplayFor(modelItem => project.EndDate)
+                            </div>
+                            <div style="height: 15%">
+                                <span style="height: 80%;width:42% " class="label label-danger">
+                                    <h5 style="color: white">До конца проекта осталось</h5>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <script src="~/assets/plugins/jquery/jquery.min.js"></script>
+    <script src="~/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/js/waves.js"></script>
+    <script src="~/assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
+    <script src="~/assets/plugins/sparkline/jquery.sparkline.min.js"></script>
+    <script src="~/js/custom.min.js"></script>
+    <script src="~/js/jasny-bootstrap.js"></script>
+    <script src="~/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
+</body>
+</html>
