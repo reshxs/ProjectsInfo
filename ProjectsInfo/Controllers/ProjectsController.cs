@@ -56,7 +56,7 @@ namespace ProjectsInfo.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(
-            [Bind("ID,Title,StartDate,EndDate,ExpectedHours,DevelopmentHourPrice,TestingHours,TestingHourPrice")]
+            [Bind("ID,Title,StartDate,EndDate,ExpectedHours,DevelopmentHourPrice,TestingHours,TestingHourPrice, ManagerID")]
             Project project)
         {
             if (ModelState.IsValid)
@@ -94,7 +94,7 @@ namespace ProjectsInfo.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id,
-            [Bind("ID,Title,StartDate,EndDate,ExpectedHours,DevelopmentHourPrice,TestingHours,TestingHourPrice")]
+            [Bind("ID,Title,StartDate,EndDate,ExpectedHours,DevelopmentHourPrice,TestingHours,TestingHourPrice, ManagerID")]
             Project project)
         {
             if (id != project.ID)
@@ -134,7 +134,7 @@ namespace ProjectsInfo.Controllers
 
             ViewBag.ManagerID = new SelectList(
                 managersQuery.AsNoTracking(), 
-                "ManagerID", 
+                "ID", 
                 "Name", 
                 selectedManagers);
         }
