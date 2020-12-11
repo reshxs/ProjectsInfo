@@ -42,5 +42,6 @@ namespace ProjectsInfo.Data
         public DbSet<Developer> Developers { get; set; }
         public DbSet<DeveloperAssignment> DeveloperAssignments { get; set; }
         public DbSet<Month> Months { get; set; }
+        public DbSet<Manager> Managers { get; set; }
     }
 }
