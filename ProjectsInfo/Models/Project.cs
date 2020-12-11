@@ -35,14 +35,18 @@ namespace ProjectsInfo.Models
         [DataType(DataType.Currency)]
         public decimal TestingHourPrice { get; set; }
 
+        [Display(Name = "Разработчики")]
+        public ICollection<DeveloperAssignment> DeveloperAssignments { get; set; }
+        
+        public int? ManagerID { get; set; }
+        [Display(Name = "Менеджер")]
+        public Manager Manager { get; set; }
+        
         [DataType(DataType.Currency)]
         [Display(Name = "Стоимость")]
         public decimal Price =>
             TestingHours * TestingHourPrice
             + ExpectedHours * DevelopmentHourPrice;
-
-        [Display(Name = "Разработчики")]
-        public ICollection<DeveloperAssignment> DeveloperAssignments { get; set; }
 
         [DataType(DataType.Currency)]
         [Display(Name = "Фактическая цена")]

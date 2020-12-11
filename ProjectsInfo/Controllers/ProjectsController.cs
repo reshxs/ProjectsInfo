@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProjectsInfo.Data;
 using ProjectsInfo.Models;
@@ -45,6 +46,7 @@ namespace ProjectsInfo.Controllers
         // GET: Project/Create
         public IActionResult Create()
         {
+            PopulateManagersDropDownList();
             return View();
         }
 
@@ -54,7 +56,7 @@ namespace ProjectsInfo.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(
-            [Bind("ID,Title,StartDate,EndDate,ExpectedHours,DevelopmentHourPrice,TestingHours,TestingHourPrice")]
+            [Bind("ID,Title,StartDate,EndDate,ExpectedHours,DevelopmentHourPrice,TestingHours,TestingHourPrice, ManagerID")]
             Project project)
         {
             if (ModelState.IsValid)
@@ -64,6 +66,7 @@ namespace ProjectsInfo.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+            PopulateManagersDropDownList(project.ManagerID);
             return View(project);
         }
 
@@ -80,7 +83,8 @@ namespace ProjectsInfo.Controllers
             {
                 return NotFound();
             }
-
+            
+            PopulateManagersDropDownList(project.ManagerID);
             return View(project);
         }
 
@@ -90,7 +94,7 @@ namespace ProjectsInfo.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id,
-            [Bind("ID,Title,StartDate,EndDate,ExpectedHours,DevelopmentHourPrice,TestingHours,TestingHourPrice")]
+            [Bind("ID,Title,StartDate,EndDate,ExpectedHours,DevelopmentHourPrice,TestingHours,TestingHourPrice, ManagerID")]
             Project project)
         {
             if (id != project.ID)
@@ -117,7 +121,22 @@ namespace ProjectsInfo.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
+            PopulateManagersDropDownList(project.ManagerID);
             return View(project);
+        }
+
+        private void PopulateManagersDropDownList(object selectedManagers = null)
+        {
+            var managersQuery = 
+                from m in _context.Managers
+                orderby m.Name
+                select m;
+
+            ViewBag.ManagerID = new SelectList(
+                managersQuery.AsNoTracking(), 
+                "ID", 
+                "Name", 
+                selectedManagers);
         }
 
         //GET: Project/EditDevelopers/5

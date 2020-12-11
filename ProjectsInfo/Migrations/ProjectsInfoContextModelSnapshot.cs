@@ -52,6 +52,24 @@ namespace ProjectsInfo.Migrations
                     b.ToTable("DeveloperAssignments");
                 });
 
+            modelBuilder.Entity("ProjectsInfo.Models.Manager", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("Salary")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Managers");
+                });
+
             modelBuilder.Entity("ProjectsInfo.Models.Month", b =>
                 {
                     b.Property<int>("ID")
@@ -97,6 +115,9 @@ namespace ProjectsInfo.Migrations
                     b.Property<int>("ExpectedHours")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("ManagerID")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("timestamp without time zone");
 
@@ -110,6 +131,8 @@ namespace ProjectsInfo.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("ManagerID");
 
                     b.ToTable("Projects");
                 });
@@ -160,6 +183,13 @@ namespace ProjectsInfo.Migrations
                         .HasForeignKey("DeveloperAssignmentProjectID", "DeveloperAssignmentDeveloperID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("ProjectsInfo.Models.Project", b =>
+                {
+                    b.HasOne("ProjectsInfo.Models.Manager", "Manager")
+                        .WithMany("Projects")
+                        .HasForeignKey("ManagerID");
                 });
 #pragma warning restore 612, 618
         }
