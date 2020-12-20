@@ -21,6 +21,9 @@ namespace ProjectsInfo.Models
         [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
 
+        [Display(Name = "До конца")] 
+        public string TimeBeforeEnd => DaysFormat((EndDate - DateTime.Now).Days);
+
         [Display(Name = "Часы разработки")]
         public int ExpectedHours { get; set; }
 
@@ -59,6 +62,29 @@ namespace ProjectsInfo.Models
                         => developerAssignment.TotalHours * developerAssignment.Developer.HourPrice);
                 return 0;
             }
+        }
+
+        private static string DaysFormat(int daysCount)
+        {
+            string daysFormat;
+            if (daysCount >= 11 && daysCount <= 19)
+            {
+                daysFormat = "дней";
+            }
+            if (daysCount % 10 == 1)
+            {
+                daysFormat = "день";
+            }
+            if (daysCount % 10 >= 2 && daysCount % 10 <= 4)
+            {
+                daysFormat = "дня";
+            }
+            else
+            {
+                daysFormat = "дней";
+            }
+
+            return $"{daysCount} {daysFormat}";
         }
     }
 }
