@@ -4,9 +4,6 @@
     ViewData["Title"] = "Index";
 }
 
-<!--<a asp-action="Details" asp-route-id="project.ID">Details</a>
-<a asp-action="Delete" asp-route-id="project.ID">Delete</a>-->
-
 <!DOCTYPE html>
 <html lang="en" style="background: #eef5f9">
 <head>
@@ -34,12 +31,29 @@
                 <div class="card-body">
                     <div><h4 class="card-title"> @Html.DisplayFor(modelItem => project.Title)</h4></div>
                     <div style="height: 200px; overflow: auto;">
-                        <!--<div style="float: left;width: 60%;height: 100%">Описание проекта</div>-->
-                        <div style="float: right;width:40%;height: 100%;padding-left:20px">
-                            <div style="height: 20%;width: 40%;margin-left: 60%;margin-bottom: 5%">
-                                <button type="button" class="btn waves-effect waves-light btn-block btn-danger">
-                                    <a asp-action="Edit" asp-route-id="@project.ID" style="color:white">Редактировать</a>
-                                </button>
+                        <div style="float: left;width: 54%;height: 100%">Описание проекта</div>
+                        <div style="float: right;width:46%;height: 100%;padding-left:20px">
+                            <div style="height: 20%;width: 40%;margin-bottom: 5%;display: flex;flex-flow: row">
+                                <div>
+                                    <button type="button" class="btn waves-effect waves-light btn-block btn-danger">
+                                        <a asp-action="Edit" asp-route-id="@project.ID" style="color:white">Редактировать</a>
+                                    </button>
+                                </div>
+                                <div >
+                                    <button type="button" class="btn waves-effect waves-light btn-block btn-danger" style="margin-left:4%">
+                                        <a asp-action="Delete" asp-route-id="@project.ID" style="color:white">Удалить</a>
+                                    </button>
+                                </div>
+                                <div>
+                                    <button type="button" class="btn waves-effect waves-light btn-block btn-danger" style="margin-left:5%">
+                                        <a asp-action="Details" asp-route-id="@project.ID" style="color:white">Подробности</a>
+                                    </button>
+                                </div>
+                                <div>
+                                    <button type="button" class="btn waves-effect waves-light btn-block btn-danger" style="margin-left:6%;width:200%">
+                                        <a asp-action="EditDevelopers" asp-route-id="@project.ID" style="color:white">Редактировать разработчиков</a>
+                                    </button>
+                                </div>
                             </div>
                             <div style="height: 15%">
                                 <span style="height: 80%;width:42%" class="label label-success">
