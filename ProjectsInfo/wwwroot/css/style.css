@@ -3420,7 +3420,7 @@ table th {
 }
 
 .table th, .table thead th {
-    border: 0px
+    border-bottom: 0px
 }
 
 .color-table.primary-table thead th {
