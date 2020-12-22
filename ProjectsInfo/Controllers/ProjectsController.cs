@@ -22,7 +22,7 @@ namespace ProjectsInfo.Controllers
         // GET: Project
         public async Task<IActionResult> Index()
         {
-            var projects = await _context.Projects.ToListAsync();
+            var projects = await _context.Projects.Include(m => m.Manager).ToListAsync();
             return View(projects);
         }
 
