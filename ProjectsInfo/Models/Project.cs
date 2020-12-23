@@ -64,6 +64,21 @@ namespace ProjectsInfo.Models
             }
         }
 
+        [Display(Name = "Рентабильность (Врем.)")]
+        public decimal TimeProfit
+        {
+            get
+            {
+                if(DeveloperAssignments == null)
+                    return 0;
+                var actualTime = DeveloperAssignments.Sum(d => d.TotalHours);
+                return actualTime / (ExpectedHours + TestingHours) * 100;
+            }
+        }
+
+        [Display(Name= "Рентабильность (Денеж.)")]
+        public decimal MoneyProfit => ActualPrice / Price * 100;
+
         private static string DaysFormat(int daysCount)
         {
             string daysFormat;
