@@ -1,11 +1,12 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using ProjectsInfo.Models;
 using Npgsql.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ProjectsInfo.Data
 {
-    public class ProjectsInfoContext : DbContext
+    public class ProjectsInfoContext : IdentityDbContext<ApplicationUser>
     {
         public ProjectsInfoContext(DbContextOptions<ProjectsInfoContext> options)
             : base(options)
@@ -14,6 +15,7 @@ namespace ProjectsInfo.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             //One-to-Many (project <- projectAssigment)
             modelBuilder.Entity<Project>()
                 .HasMany(project => project.DeveloperAssignments)
@@ -38,7 +40,6 @@ namespace ProjectsInfo.Data
         }
 
         public DbSet<Project> Projects { get; set; }
-        public DbSet<User> Users { get; set; }
         public DbSet<Developer> Developers { get; set; }
         public DbSet<DeveloperAssignment> DeveloperAssignments { get; set; }
         public DbSet<Month> Months { get; set; }

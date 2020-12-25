@@ -51,6 +51,8 @@ namespace ProjectsInfo
 
             app.UseRouting();
 
+            app.UseAuthentication();
+            
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
