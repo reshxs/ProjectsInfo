@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using ProjectsInfo.Models;
 using Npgsql.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using ProjectsInfo.Models.Accounts;
 
 namespace ProjectsInfo.Data
 {
