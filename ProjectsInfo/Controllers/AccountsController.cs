@@ -59,7 +59,7 @@ namespace ProjectsInfo.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, false, false);
                 if (result.Succeeded)
                 {
-                    RedirectToAction("Index", "Home");
+                    RedirectToAction("Index", "Projects");
                 }
                 else
                 {
