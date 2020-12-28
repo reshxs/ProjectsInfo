@@ -64,7 +64,7 @@ namespace ProjectsInfo.Models
             }
         }
 
-        [Display(Name = "Рентабильность (Врем.)")]
+        [Display(Name = "Рентабельность (Врем.)")]
         public decimal TimeProfit
         {
             get
@@ -76,7 +76,7 @@ namespace ProjectsInfo.Models
             }
         }
 
-        [Display(Name= "Рентабильность (Денеж.)")]
+        [Display(Name= "Рентабельность (Денеж.)")]
         public decimal MoneyProfit => ActualPrice / Price * 100;
 
         private static string DaysFormat(int daysCount)
