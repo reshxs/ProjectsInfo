@@ -59,7 +59,7 @@
                                 <span style="height: 80%;width:42%" class="label label-success">
                                     <h5 style="color: white">Менеджер</h5>
                                 </span>
-                                @Html.DisplayFor(modelItem => project.Manager)
+                                @Html.DisplayFor(modelItem => project.Manager.Name)
                             </div>
                             <div style="height: 15%">
                                 <span style="height: 80%;width:42%" class="label label-warning">
@@ -77,6 +77,7 @@
                                 <span style="height: 80%;width:42% " class="label label-danger">
                                     <h5 style="color: white">До конца проекта осталось</h5>
                                 </span>
+                                @Html.DisplayFor(modelItem => project.TimeBeforeEnd)
                             </div>
                         </div>
                     </div>
