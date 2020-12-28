@@ -6,10 +6,10 @@ namespace ProjectsInfo.Models
     public class Developer
     {
         // Обшие затраты - константа, прибавляющаяся к стоимости часа
-        private const decimal GenralExpences = 100;
+        private const double GenralExpences = 100;
 
         // Повышающий коэффициент
-        private const decimal Multiplier = 2.5m;
+        private const double Multiplier = 2.5;
 
         // Primary key
         public int ID { get; set; }
@@ -19,10 +19,10 @@ namespace ProjectsInfo.Models
 
         [Display(Name = "Зарплата")]
         [DataType(DataType.Currency)]
-        public decimal Salary { get; set; }
+        public double Salary { get; set; }
 
         [Display(Name = "Стоимость часа работы")]
-        public decimal HourPrice => (Salary / 160) * Multiplier + GenralExpences;
+        public double HourPrice => (Salary / 160) * Multiplier + GenralExpences;
 
         [Display(Name = "Проекты")]
         public ICollection<DeveloperAssignment> DeveloperAssignments { get; set; }
