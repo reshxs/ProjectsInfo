@@ -29,14 +29,14 @@ namespace ProjectsInfo.Models
 
         [Display(Name = "Цена часа разработки")]
         [DataType(DataType.Currency)]
-        public decimal DevelopmentHourPrice { get; set; }
+        public double DevelopmentHourPrice { get; set; }
 
         [Display(Name = "Часы тестирования")]
         public int TestingHours { get; set; }
 
         [Display(Name = "Цена часа тестирования")]
         [DataType(DataType.Currency)]
-        public decimal TestingHourPrice { get; set; }
+        public double TestingHourPrice { get; set; }
 
         [Display(Name = "Разработчики")]
         public ICollection<DeveloperAssignment> DeveloperAssignments { get; set; }
@@ -47,13 +47,13 @@ namespace ProjectsInfo.Models
         
         [DataType(DataType.Currency)]
         [Display(Name = "Стоимость")]
-        public decimal Price =>
+        public double Price =>
             TestingHours * TestingHourPrice
             + ExpectedHours * DevelopmentHourPrice;
 
         [DataType(DataType.Currency)]
         [Display(Name = "Фактическая цена")]
-        public decimal ActualPrice
+        public double ActualPrice
         {
             get
             {
@@ -65,7 +65,7 @@ namespace ProjectsInfo.Models
         }
 
         [Display(Name = "Рентабильность (Врем.)")]
-        public decimal TimeProfit
+        public double TimeProfit
         {
             get
             {
@@ -77,7 +77,7 @@ namespace ProjectsInfo.Models
         }
 
         [Display(Name= "Рентабильность (Денеж.)")]
-        public decimal MoneyProfit => ActualPrice / Price * 100;
+        public double MoneyProfit => ActualPrice / Price * 100;
 
         private static string DaysFormat(int daysCount)
         {
