@@ -53,12 +53,12 @@ namespace ProjectsInfo.Models
 
         [DataType(DataType.Currency)]
         [Display(Name = "Фактическая цена")]
-        public decimal ActualPrice
+        public decimal  ActualPrice
         {
             get
             {
                 if (DeveloperAssignments != null)
-                    return DeveloperAssignments.Sum(developerAssignment
+                    return (decimal) DeveloperAssignments.Sum(developerAssignment
                         => developerAssignment.TotalHours * developerAssignment.Developer.HourPrice);
                 return 0;
             }
