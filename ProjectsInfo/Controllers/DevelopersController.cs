@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjectsInfo.Data;
@@ -7,6 +8,7 @@ using ProjectsInfo.Models;
 
 namespace ProjectsInfo.Controllers
 {
+    [Authorize]
     public class DevelopersController : Controller
     {
         private readonly ProjectsInfoContext _context;

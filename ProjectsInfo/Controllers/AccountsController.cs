@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ProjectsInfo.Models.Accounts;
@@ -32,8 +33,7 @@ namespace ProjectsInfo.Controllers
 
                 if (result.Succeeded)
                 {
-                    await _signInManager.SignInAsync(user, false);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Login");
                 }
                 
                 foreach (var error in result.Errors)
@@ -69,9 +69,9 @@ namespace ProjectsInfo.Controllers
             
             return View(model);
         }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        
+        [AutoValidateAntiforgeryToken]
+        [Authorize]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
