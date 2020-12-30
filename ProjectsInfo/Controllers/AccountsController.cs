@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -45,9 +46,9 @@ namespace ProjectsInfo.Controllers
             return View(model);
         }
         
-        public ActionResult Login()
+        public ActionResult Login(string returnUrl = null)
         {
-            return View();
+            return View(new LoginModel{ ReturnUrl = returnUrl });
         }
 
         [HttpPost]
@@ -59,7 +60,14 @@ namespace ProjectsInfo.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, false, false);
                 if (result.Succeeded)
                 {
-                    RedirectToAction("Index", "Projects");
+                    if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
+                    {
+                        return Redirect(model.ReturnUrl);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
                 else
                 {
