@@ -4,24 +4,23 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Шаблон</title>
+    <title>@ViewData["Title"]</title>
     <link href="~/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/css/style.css" rel="stylesheet" />
     <link href="~/css/colors/blue.css" id="theme" rel="stylesheet" />
 </head>
 <body class="fix-header card-no-border mini-sidebar">
-
-
     <div id="main-wrapper">
         <header class="topbar" style="">
             <nav class="navbar top-navbar navbar-expand-md navbar-light">
                 <div class="navbar-collapse">
                     <ul class="navbar-nav mr-auto mt-md-0">
+                        <a style="color:white;padding-left:30%" href="../Projects/Index">Проекты</a>
                     </ul>
                     <ul class="navbar-nav my-lg-0">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="~/assets/images/users/1.jpg" alt="user" class="profile-pic">
+                                <img src="~/assets/images/users/1.jpg" alt="user" class="profile-pic">
                             </a>
                             <div class="dropdown-menu dropdown-menu-right scale-up">
                                 <ul class="dropdown-user">
@@ -35,7 +34,6 @@
                                         </div>
                                     </li>
                                     <li role="separator" class="divider"></li>
-                                    <li></li>
                                     <li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
                                 </ul>
                             </div>
@@ -72,6 +70,8 @@
     <!-- Style switcher -->
     <!-- ============================================================== -->
     <script src="~/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
+    <script src="~/js/footable-init.js"></script>
+    <script src="~/assets/plugins/footable/js/footable.all.min.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
