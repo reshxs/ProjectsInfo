@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjectsInfo.Data;
 using ProjectsInfo.Models;
+using ProjectsInfo.Models.Employes;
 
 namespace ProjectsInfo.Controllers
 {
