@@ -65,7 +65,7 @@ namespace ProjectsInfo
                 options.Cookie.HttpOnly = true;
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
 
-                options.LoginPath = "/Identity/Account/Login";
+                options.LoginPath = "/Accounts/Login";
                 //options.AccessDeniedPath = "/Identity/Account/AccessDenied";
                 options.SlidingExpiration = true;
             });
