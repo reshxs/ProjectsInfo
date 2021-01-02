@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using ProjectsInfo.Models.Employes;
 
 namespace ProjectsInfo.Models
 {
@@ -81,16 +82,18 @@ namespace ProjectsInfo.Models
 
         private static string DaysFormat(int daysCount)
         {
+            var isExpired = daysCount < 0 ? "Просрочено на " : "";
             string daysFormat;
+            daysCount = Math.Abs(daysCount);
             if (daysCount >= 11 && daysCount <= 19)
             {
                 daysFormat = "дней";
             }
-            if (daysCount % 10 == 1)
+            else if (daysCount % 10 == 1)
             {
                 daysFormat = "день";
             }
-            if (daysCount % 10 >= 2 && daysCount % 10 <= 4)
+            else if (daysCount % 10 >= 2 && daysCount % 10 <= 4)
             {
                 daysFormat = "дня";
             }
@@ -98,8 +101,8 @@ namespace ProjectsInfo.Models
             {
                 daysFormat = "дней";
             }
-
-            return $"{daysCount} {daysFormat}";
+            
+            return $"{isExpired}{daysCount} {daysFormat}";
         }
     }
 }

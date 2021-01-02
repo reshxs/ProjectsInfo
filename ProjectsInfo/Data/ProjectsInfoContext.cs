@@ -4,6 +4,7 @@ using ProjectsInfo.Models;
 using Npgsql.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ProjectsInfo.Models.Accounts;
+using ProjectsInfo.Models.Employes;
 
 namespace ProjectsInfo.Data
 {

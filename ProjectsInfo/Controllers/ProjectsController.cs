@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProjectsInfo.Data;
 using ProjectsInfo.Models;
+using ProjectsInfo.Models.Accounts;
 
 namespace ProjectsInfo.Controllers
 {
+    [Authorize]
     public class ProjectsController : Controller
     {
         private readonly ProjectsInfoContext _context;
@@ -23,11 +25,14 @@ namespace ProjectsInfo.Controllers
         // GET: Project
         public async Task<IActionResult> Index()
         {
-            var projects = await _context.Projects.Include(m => m.Manager).ToListAsync();
+            var projects = await _context.Projects
+                .Include(m => m.Manager)
+                .ToListAsync();
             return View(projects);
         }
 
         // GET: Project/Details/5
+        [Authorize(Roles=UserRoles.Manager)]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,6 +51,7 @@ namespace ProjectsInfo.Controllers
         }
 
         // GET: Project/Create
+        [Authorize(Roles=UserRoles.Manager)]
         public IActionResult Create()
         {
             PopulateManagersDropDownList();
@@ -57,6 +63,7 @@ namespace ProjectsInfo.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles=UserRoles.Manager)]
         public async Task<IActionResult> Create(
             [Bind("ID,Title,StartDate,EndDate,ExpectedHours,DevelopmentHourPrice,TestingHours,TestingHourPrice, ManagerID")]
             Project project)
@@ -73,6 +80,7 @@ namespace ProjectsInfo.Controllers
         }
 
         // GET: Project/Edit/5
+        [Authorize(Roles=UserRoles.Manager)]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -95,6 +103,7 @@ namespace ProjectsInfo.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles=UserRoles.Manager)]
         public async Task<IActionResult> Edit(int id,
             [Bind("ID,Title,StartDate,EndDate,ExpectedHours,DevelopmentHourPrice,TestingHours,TestingHourPrice, ManagerID")]
             Project project)
@@ -303,6 +312,7 @@ namespace ProjectsInfo.Controllers
         }
 
         // GET: Project/Delete/5
+        [Authorize(Roles=UserRoles.Manager)]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -323,6 +333,7 @@ namespace ProjectsInfo.Controllers
         // POST: Project/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles=UserRoles.Manager)]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var project = await _context.Projects.FindAsync(id);

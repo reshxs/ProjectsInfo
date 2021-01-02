@@ -11,11 +11,13 @@ namespace ProjectsInfo.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         
-        public AccountsController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AccountsController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
         }
 
         public IActionResult Register()
@@ -34,6 +36,7 @@ namespace ProjectsInfo.Controllers
 
                 if (result.Succeeded)
                 {
+                    await AddRole(user, model.IsManager);
                     return RedirectToAction("Login");
                 }
                 
@@ -45,7 +48,25 @@ namespace ProjectsInfo.Controllers
 
             return View(model);
         }
+
+        private async Task AddRole(ApplicationUser user, bool isManager)
+        {
+            if (!await _roleManager.RoleExistsAsync(UserRoles.Manager))  
+                await _roleManager.CreateAsync(new IdentityRole(UserRoles.Manager));
+            if (!await _roleManager.RoleExistsAsync(UserRoles.Developer))  
+                await _roleManager.CreateAsync(new IdentityRole(UserRoles.Developer));
+
+            if (isManager)
+            {
+                await _userManager.AddToRoleAsync(user, UserRoles.Manager);
+            }
+            else
+            {
+                await _userManager.AddToRoleAsync(user, UserRoles.Developer);
+            }
+        }
         
+        [HttpGet]
         public ActionResult Login(string returnUrl = null)
         {
             return View(new LoginModel{ ReturnUrl = returnUrl });
@@ -77,9 +98,10 @@ namespace ProjectsInfo.Controllers
             
             return View(model);
         }
-        
+
         [AutoValidateAntiforgeryToken]
         [Authorize]
+        [HttpGet]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();

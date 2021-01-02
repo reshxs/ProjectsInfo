@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace ProjectsInfo.Models
+namespace ProjectsInfo.Models.employes
 {
-    public class Developer
+    public class Employee
     {
         // Обшие затраты - константа, прибавляющаяся к стоимости часа
         private const double GenralExpences = 100;
@@ -23,8 +22,5 @@ namespace ProjectsInfo.Models
 
         [Display(Name = "Стоимость часа работы")]
         public double HourPrice => (Salary / 160) * Multiplier + GenralExpences;
-
-        [Display(Name = "Проекты")]
-        public ICollection<DeveloperAssignment> DeveloperAssignments { get; set; }
     }
 }

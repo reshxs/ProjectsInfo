@@ -19,5 +19,8 @@ namespace ProjectsInfo.Models.Accounts
         [DataType(DataType.Password)]
         [Display(Name="Подтвердите пароль")]
         public string PasswordConfirm { get; set; }
+        
+        [Display(Name = "Зарегистрироваться как менеджер")]
+        public bool IsManager { get; set; }
     }
 }
