@@ -36,15 +36,7 @@
                     </div>
                 </div>
                 <tbody>
-                    <tr>
-                        <td>Jake Jameson</td>
-                        <td>42</td>
-                        <td>32</td>
-                        <td>74</td>
-                        <td>
-                            <button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button>
-                        </td>
-                    </tr>
+                    
                 </tbody>
                 <tfoot>
                     <tr>
@@ -113,6 +105,29 @@
             }
         </table>-->
 
+        <script>
+
+            var table = document.querySelector('table');
+
+            table.addEventListener('click', function func(event) {
+                var td = event.target.closest('td.change');
+                if (!td) return;
+                var inputAttached = td.querySelector('input');
+                if (inputAttached) return;
+
+                var input = document.createElement('input');
+
+                input.value = td.innerHTML;
+                td.innerHTML = '';
+                td.appendChild(input);
+                input.focus();
+
+                input.addEventListener('blur', function () {
+                    td.innerHTML = input.value;
+                });
+            });
+        </script>
+        
     @section Scripts {
         @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
     }

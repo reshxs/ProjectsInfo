@@ -85,7 +85,7 @@ $(window).on('load', function() {
 		var footable = addrow.data('footable');
 		
 		//build up the row we are wanting to add
-		var newRow = '<tr><td>Name</td><td>40</td><td>20</td><td>60</td><td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button></td></tr > ';
+		var newRow = '<tr><td>Name</td><td class="change"></td><td class="change"></td><td>60</td><td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button></td></tr > ';
 
 		//add it
 		footable.appendRow(newRow);
