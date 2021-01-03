@@ -1,10 +1,10 @@
 @model ProjectsInfo.Models.Project
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Редактировать проект";
 }
 
-<h1 style="text-align:center;margin:2%">Edit profile</h1>
+<h1 style="text-align:center;margin:2%">Редактировать проект</h1>
 
 <div class="row">
     <div class="col-md-4" style="margin-left:auto;margin-right:auto">
@@ -54,10 +54,10 @@
                 <span asp-validation-for="ManagerID" class="text-danger" />
             </div>
             <div class="form-group" style="display: flex; flex-flow: row">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
                 <a asp-action="Index">
                     <button type="button" class="btn waves-effect waves-light btn-block btn-danger" style="margin-left:5%">
-                        Back
+                        Назад
                     </button>
                 </a>
             </div>
