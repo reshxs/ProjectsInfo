@@ -20,22 +20,26 @@
                     <ul class="navbar-nav my-lg-0">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="~/assets/images/users/1.jpg" alt="user" class="profile-pic">
+                                <img src="~/assets/images/users/user.png" class="profile-pic">
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right scale-up">
-                                <ul class="dropdown-user">
-                                    <li>
-                                        <div class="dw-user-box">
-                                            <div class="u-img"><img src="~/assets/images/users/1.jpg" alt="user"></div>
-                                            <div class="u-text">
-                                                <h4>Steave Jobs</h4>
-                                                <p class="text-muted">varun@gmail.com</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
-                                </ul>
+                            <div style="padding:0" class="dropdown-menu dropdown-menu-right scale-up">
+
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <p>@User.Identity.Name</p>
+                                    <button type="button" class="btn waves-effect waves-light btn-block btn-danger">
+                                        <a style="color:white" asp-controller="Accounts" asp-action="Logout">Logout</a>
+                                    </button>
+                                }
+                                else
+                                {
+                                    <button style="width:100%;margin-bottom:1%" type="button" class="btn waves-effect waves-light btn-info">
+                                        <a style="color:white" asp-controller="Accounts" asp-action="Login">Login</a>
+                                    </button>
+                                    <button type="button" class="btn waves-effect waves-light btn-block btn-danger">
+                                        <a style="color:white" asp-controller="Accounts" asp-action="Register">Register</a>
+                                    </button>
+                                }
                             </div>
                         </li>
                     </ul>
