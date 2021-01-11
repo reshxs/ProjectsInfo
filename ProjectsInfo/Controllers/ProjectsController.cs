@@ -160,6 +160,9 @@ namespace ProjectsInfo.Controllers
 
             var project = await _context.Projects
                 .Include(p => p.DeveloperAssignments)
+                    .ThenInclude(d => d.Months)
+                .Include(p => p.DeveloperAssignments)
+                    .ThenInclude(d => d.Developer)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(m => m.ID == id);
 
@@ -170,26 +173,6 @@ namespace ProjectsInfo.Controllers
 
             PopulateAssignedDeveloperData(project);
             return View(project);
-        }
-        
-        private void PopulateAssignedDeveloperData(Project project)
-        {
-            var allDevelopers = _context.Developers;
-            var projectDevelopers = new HashSet<int>(
-                project.DeveloperAssignments.Select(d => d.DeveloperID));
-            var viewModel = new List<AssignedDeveloperData>();
-            
-            foreach (var developer in allDevelopers)
-            {
-                viewModel.Add(new AssignedDeveloperData()
-                {
-                    DeveloperID = developer.ID,
-                    Name = developer.Name,
-                    Assigned = projectDevelopers.Contains(developer.ID)
-                });
-            }
-
-            ViewData["Developers"] = viewModel;
         }
 
         // POST: Project/EditDevelopers/5
@@ -206,7 +189,9 @@ namespace ProjectsInfo.Controllers
 
             var projectToUpdate = await _context.Projects
                 .Include(p => p.DeveloperAssignments)
-                .ThenInclude(p => p.Developer)
+                    .ThenInclude(p => p.Developer)
+                .Include(p => p.DeveloperAssignments)
+                    .ThenInclude(d => d.Months)
                 .FirstOrDefaultAsync(m => m.ID == id);
             
             if (await TryUpdateModelAsync(
@@ -231,6 +216,22 @@ namespace ProjectsInfo.Controllers
             UpdateProjectDevelopers(selectedDevelopers, projectToUpdate);
             PopulateAssignedDeveloperData(projectToUpdate);
             return RedirectToAction(nameof(EditDevelopers));
+        }
+        
+        private void PopulateAssignedDeveloperData(Project project)
+        {
+            var allDevelopers = _context.Developers;
+            var projectDevelopers = new HashSet<int>(
+                project.DeveloperAssignments.Select(d => d.DeveloperID));
+            var viewModel = allDevelopers
+                .Select(developer => new AssignedDeveloperData
+                {
+                    DeveloperID = developer.ID, 
+                    Name = developer.Name, 
+                    Assigned = projectDevelopers.Contains(developer.ID)
+                }).ToList();
+
+            ViewData["Developers"] = viewModel;
         }
 
         private void UpdateProjectDevelopers(string[] selectedDevelopers, Project projectToUpdate)
@@ -292,7 +293,7 @@ namespace ProjectsInfo.Controllers
                 var newDate = DateTime.Parse($"{startYear}-{startMonth}-1");
                 if (!developerMonths.Contains(newDate))
                 {
-                    var newMonth = new Month()
+                    var newMonth = new Month
                     {
                         Date = newDate,
                         Hours = 0,
