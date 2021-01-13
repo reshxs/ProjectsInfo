@@ -8,39 +8,40 @@
 
 
 <div class="fix-header card-no-border">
-        <div class="container-fluid">
+    <div class="container-fluid">
+        <div class="m-t-40">
+            <div class="d-flex">
+                <div class="mr-auto">
+                    <div class="form-group">
+                        <button id="demo-btn-addrow" class="btn btn-primary" style="width: 120%;height:40px">
+                            Add developer
+                        </button>
+                    </div>
+                </div>
+                <div class="ml-auto">
+                    <div class="form-group">
+                        <input id="demo-input-search2" type="text" placeholder="Search" autocomplete="off">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive" style="margin-bottom:2%">
             <table id="demo-foo-addrow2" class="table table-bordered table-hover toggle-circle" data-page-size="7">
                 <thead>
                     <tr>
                         <th data-sort-initial="true" data-toggle="true">FIO</th>
-                        <th data-hide="phone, tablet">Mounth 1</th>
-                        <th data-hide="phone, tablet">Mounth 2</th>
+                        @for (int i = 1; i < Model.MonthsCount + 1; i++)
+                        {
+                            <th data-hide="phone, tablet">Mounth @i</th>
+                        }
                         <th data-hide="phone, tablet">Sum of hours</th>
                         <th data-sort-ignore="true" class="min-width">Delete</th>
                     </tr>
                 </thead>
-                <div class="m-t-40">
-                    <div class="d-flex">
-                        <div class="mr-auto">
-                            <div class="form-group">
-                                <button id="demo-btn-addrow" class="btn btn-primary" style="width: 120%;height:40px">
-                                    Add developer
-                                </button>
-                            </div>
-                        </div>
-                        <div class="ml-auto">
-                            <div class="form-group">
-                                <input id="demo-input-search2" type="text" placeholder="Search" autocomplete="off">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <tbody>
-                    
-                </tbody>
+                <tbody></tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="6">
+                        <td colspan="@(Model.MonthsCount+3)">
                             <div class="text-right">
                                 <ul class="pagination" style="float:right;margin:0">
                                 </ul>
@@ -49,25 +50,32 @@
                     </tr>
                 </tfoot>
             </table>
+        </div>
+        <div class="table-responsive">
             <table id="demo-foo-addrow3" class="table table-bordered table-hover toggle-circle" data-page-size="1">
                 <thead>
                     <tr>
                         <th data-sort-initial="true" data-toggle="true"></th>
-                        <th data-hide="phone, tablet">Mounth 1</th>
-                        <th data-hide="phone, tablet">Mounth 2</th>
+                        @for (int i = 1; i < Model.MonthsCount + 1; i++)
+                        {
+                            <th data-hide="phone, tablet">Mounth @i</th>
+                        }
                         <th data-hide="phone, tablet">Sum of hours</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>Sum of hours</td>
-                        <td>42</td>
-                        <td>32</td>
-                        <td>74</td>
+                        @for (int i = 1; i < Model.MonthsCount + 1; i++)
+                        {
+                            <td>number</td>
+                        }
+                        <td>sum</td>
                     </tr>
                 </tbody>
             </table>
         </div>
+    </div>
         <div class="form-group" style="display: flex; flex-flow: row;margin-left:2%">
             <input type="submit" value="Save" class="btn btn-primary" />
             <a asp-action="Index">
@@ -77,34 +85,6 @@
             </a>
         </div>
 </div>
-
-
-
-
-    <!--<table>
-            <tr>
-            @{
-                var count = 0;
-                List<AssignedDeveloperData> developers = ViewBag.Developers;
-
-                foreach (var developer in developers)
-                {
-                    if (count++ % 3 == 0)
-                    {
-                        @:</tr><tr>
-                    }
-                    @:<td>
-                    <input type="checkbox"
-                           name="selectedDevelopers"
-                           value="@developer.DeveloperID"
-                           @(Html.Raw(developer.Assigned ? "checked=" : "")) />
-                    @developer.DeveloperID @:  @developer.Name
-                    @:</td>
-                }
-                @:</tr>
-            }
-        </table>-->
-
         <script>
 
             var table = document.querySelector('table');
@@ -126,6 +106,9 @@
                     td.innerHTML = input.value;
                 });
             });
+
+            var countadd = @Model.MonthsCount;
+            
         </script>
         
     @section Scripts {
