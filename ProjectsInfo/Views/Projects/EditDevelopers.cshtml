@@ -256,7 +256,7 @@ $(window).on('load', function() {
         console.log(developerId)
         var name = $(event.currentTarget).text()
 		$.post('@Url.Action("AddDeveloper", "Ajax")?id=' + @Model.ID,{'projectId': @Model.ID, 'developerId': developerId}, function (data) {
-			$('#adddeveloper').replaceWith('<div id=' + developerId + '">' + name + '<\div>')
+			$('#adddeveloper').replaceWith('<div id=' + developerId + '>' + name + '<\div>')
             		console.log(name)
 		})
 	});
