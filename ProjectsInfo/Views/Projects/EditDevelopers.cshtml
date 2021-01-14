@@ -233,7 +233,7 @@ $(window).on('load', function() {
 	$(document).on('click', '.dropdown-item', function (id){
 		console.log(id.currentTarget)
 		var name = $(id.currentTarget).text()
-		$('#adddeveloper').last().html(name)
+		$('#adddeveloper').replaceWith('<div>' + name + '<\div>')
 		console.log(name)
 	});
 });
