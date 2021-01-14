@@ -39,7 +39,19 @@
                         <th data-sort-ignore="true" class="min-width">Delete</th>
                     </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody>
+                @foreach (var developerAssginment in Model.DeveloperAssignments)
+                {
+	                <tr>
+		                <td><div id="@developerAssginment.DeveloperID">@developerAssginment.Developer.Name</div></td>
+		                @foreach (var month in developerAssginment.Months)
+		                {
+			                <td class="change">@month.Hours</td>
+		                }
+		                <td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button></td>
+	                </tr>
+                }
+                </tbody>
                 <tfoot>
                     <tr>
                         <td colspan="@(Model.MonthsCount+3)">
@@ -172,27 +184,35 @@ $(window).on('load', function() {
 	// Add & Remove Row
 	var addrow = $('#demo-foo-addrow');
 	addrow.footable().on('click', '.delete-row-btn', function() {
-
+		
 		//get the footable object
 		var footable = addrow.data('footable');
 
 		//get the row we are wanting to delete
 		var row = $(this).parents('tr:first');
-
+		developerId = row.children().first().children().last().attr('id')
+		
 		//delete the row
 		footable.removeRow(row);
+		
+		console.log(developerId)
+		$.post('@Url.Action("RemoveDeveloper", "Ajax")?id=' + @Model.ID, {'projectID': @Model.ID, 'developerId': developerId})
 	});
     var addrow = $('#demo-foo-addrow2');
-	addrow.footable().on('click', '.delete-row-btn', function() {
+	addrow.footable().on('click', '.delete-row-btn', function(event) {
 
 		//get the footable object
 		var footable = addrow.data('footable');
 
 		//get the row we are wanting to delete
 		var row = $(this).parents('tr:first');
-
+		developerId = row.children().first().children().last().attr('id')
+		
 		//delete the row
 		footable.removeRow(row);
+		
+		console.log(developerId)
+		$.post('@Url.Action("RemoveDeveloper", "Ajax")?id=' + @Model.ID, {'projectID': @Model.ID, 'developerId': developerId})
 	});
 	// Add Row Button
 	$('#demo-btn-addrow').click(function() {
@@ -230,11 +250,15 @@ $(window).on('load', function() {
 			footable.appendRow(newRow);
 		})
 	});
-	$(document).on('click', '.dropdown-item', function (id){
-		console.log(id.currentTarget)
-		var name = $(id.currentTarget).text()
-		$('#adddeveloper').replaceWith('<div>' + name + '<\div>')
-		console.log(name)
+	$(document).on('click', '.dropdown-item', function (event){
+		console.log(event.currentTarget)
+		var developerId = event.currentTarget.id
+        console.log(developerId)
+        var name = $(event.currentTarget).text()
+		$.post('@Url.Action("AddDeveloper", "Ajax")?id=' + @Model.ID,{'projectId': @Model.ID, 'developerId': developerId}, function (data) {
+			$('#adddeveloper').replaceWith('<div id=' + developerId + '">' + name + '<\div>')
+            		console.log(name)
+		})
 	});
 });
 
