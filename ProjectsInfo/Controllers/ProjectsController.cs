@@ -229,9 +229,10 @@ namespace ProjectsInfo.Controllers
                     DeveloperID = developer.ID, 
                     Name = developer.Name, 
                     Assigned = projectDevelopers.Contains(developer.ID)
-                }).ToList();
-
-            ViewData["Developers"] = viewModel;
+                })
+                .ToList();
+            
+            ViewBag.Developers = viewModel;
         }
 
         private void UpdateProjectDevelopers(string[] selectedDevelopers, Project projectToUpdate)

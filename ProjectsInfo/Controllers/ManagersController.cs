@@ -23,7 +23,7 @@ namespace ProjectsInfo.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public ActionResult Create()
         {
             return View();
         }

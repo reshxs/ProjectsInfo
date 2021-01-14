@@ -1,3 +1,4 @@
+@using ProjectsInfo.Controllers
 @model ProjectsInfo.Models.Project
 
 @{
@@ -85,7 +86,7 @@
             </a>
         </div>
 </div>
-        <script>
+<script>
 
             var table = document.querySelector('table');
 
@@ -110,7 +111,133 @@
             var countadd = @Model.MonthsCount;
             
         </script>
-        
-    @section Scripts {
-        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-    }
+
+@section Scripts {
+
+	<script>    
+$(window).on('load', function() {
+	
+	// Row Toggler
+	// -----------------------------------------------------------------
+	$('#demo-foo-row-toggler').footable();
+
+	// Accordion
+	// -----------------------------------------------------------------
+	$('#demo-foo-accordion').footable().on('footable_row_expanded', function(e) {
+		$('#demo-foo-accordion tbody tr.footable-detail-show').not(e.row).each(function() {
+			$('#demo-foo-accordion').data('footable').toggleDetail(this);
+		});
+	});
+
+	// Pagination
+	// -----------------------------------------------------------------
+	$('#demo-foo-pagination').footable();
+	$('#demo-show-entries').change(function (e) {
+		e.preventDefault();
+		var pageSize = $(this).val();
+		$('#demo-foo-pagination').data('page-size', pageSize);
+		$('#demo-foo-pagination').trigger('footable_initialized');
+	});
+
+	// Filtering
+	// -----------------------------------------------------------------
+	var filtering = $('#demo-foo-filtering');
+	filtering.footable().on('footable_filtering', function (e) {
+		var selected = $('#demo-foo-filter-status').find(':selected').val();
+		e.filter += (e.filter && e.filter.length > 0) ? ' ' + selected : selected;
+		e.clear = !e.filter;
+	});
+
+	// Filter status
+	$('#demo-foo-filter-status').change(function (e) {
+		e.preventDefault();
+		filtering.trigger('footable_filter', {filter: $(this).val()});
+	});
+
+	// Search input
+	$('#demo-foo-search').on('input', function (e) {
+		e.preventDefault();
+		filtering.trigger('footable_filter', {filter: $(this).val()});
+	});
+
+
+	
+
+	// Search input
+	$('#demo-input-search2').on('input', function (e) {
+		e.preventDefault();
+		addrow.trigger('footable_filter', {filter: $(this).val()});
+	});
+	
+	// Add & Remove Row
+	var addrow = $('#demo-foo-addrow');
+	addrow.footable().on('click', '.delete-row-btn', function() {
+
+		//get the footable object
+		var footable = addrow.data('footable');
+
+		//get the row we are wanting to delete
+		var row = $(this).parents('tr:first');
+
+		//delete the row
+		footable.removeRow(row);
+	});
+    var addrow = $('#demo-foo-addrow2');
+	addrow.footable().on('click', '.delete-row-btn', function() {
+
+		//get the footable object
+		var footable = addrow.data('footable');
+
+		//get the row we are wanting to delete
+		var row = $(this).parents('tr:first');
+
+		//delete the row
+		footable.removeRow(row);
+	});
+	// Add Row Button
+	$('#demo-btn-addrow').click(function() {
+		// Getting developers list
+		$.get('@Url.Action("GetNotAssignedDevelopers", "Ajax")?id='+@Model.ID, function (data) {
+			//populate list of tags with developers
+			var developers = ''
+			for (let i = 0; i < data.length; i++)
+			{
+				developers += '<button class="dropdown-item" id=' + data[i].developerID +'>' + data[i].name + '</button>\n'
+			}
+			
+			//get the footable object
+			var footable = addrow.data('footable');
+
+			//build up the row we are wanting to add
+
+			let rows = '';
+			for (var i = 0; i < countadd; i++) {
+				rows += '<td class="change"></td>'
+			}
+
+			var newRow = '<tr><td><div id="adddeveloper"><div class="btn-group">\n' +
+				'<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\n' +
+				'      Выбрать разработчика\n' +
+				'</button>\n' +
+				'<div class="dropdown-menu">\n' +
+						developers +
+				' </div>\n' +
+				' </div></div></td>';
+			newRow += rows;
+			newRow += '<td>sum</td><td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button></td></tr>'
+
+			//add it
+			footable.appendRow(newRow);
+		})
+	});
+	$(document).on('click', '.dropdown-item', function (id){
+		console.log(id.currentTarget)
+		var name = $(id.currentTarget).text()
+		$('#adddeveloper').html(name)
+		console.log(name)
+	});
+});
+
+    </script>
+	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
