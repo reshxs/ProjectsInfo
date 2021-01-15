@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProjectsInfo.Data;
@@ -83,7 +85,8 @@ namespace ProjectsInfo.Controllers
                     DeveloperID = addedDeveloper.DeveloperId,
                     ProjectID = addedDeveloper.ProjectId,
                     Project = project,
-                    Developer = developer
+                    Developer = developer,
+                    Months = new List<Month>()
                 });
                 await _context.SaveChangesAsync();
                 return Ok();
@@ -118,6 +121,62 @@ namespace ProjectsInfo.Controllers
             }
 
             return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateMonth(int? id, UpdateMonthModel month)
+        {
+            var monthToUpdate = await _context.Months.FirstOrDefaultAsync(m => m.ID == id);
+
+            if (monthToUpdate == null || month.Id != id)
+            {
+                return NotFound();
+            }
+            
+            monthToUpdate.Hours = month.Hours;
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<UpdateMonthModel>> AddMonth(int? id, AddMonthModel month)
+        {
+            var project = await _context.Projects
+                .Include(p => p.DeveloperAssignments)
+                .ThenInclude(d => d.Months)
+                .FirstOrDefaultAsync(p => p.ID == id);
+
+            if (project == null || month.ProjectId != id)
+            {
+                return NotFound();
+            }
+
+            var developerAssignment =
+                project.DeveloperAssignments.FirstOrDefault(d => d.DeveloperID == month.DeveloperId);
+
+            if (developerAssignment == null)
+            {
+                return NotFound();
+            }
+
+            var splitDate = month.Date.Split("/");
+            var monthNumber = splitDate[0];
+            var year = splitDate[1];
+            var monthToAdd = new Month()
+            {
+                Hours = month.Hours,
+                Date = DateTime.Parse($"{year}-{monthNumber}-{1}"),
+                DeveloperAssignment = developerAssignment,
+                DeveloperAssignmentID = developerAssignment.ID
+            };
+            
+            developerAssignment.Months.Add(monthToAdd);
+            await _context.SaveChangesAsync();
+            return new UpdateMonthModel
+            {
+                Hours = monthToAdd.Hours,
+                Id = monthToAdd.ID
+            };
         }
     }
 }

@@ -25,7 +25,23 @@ namespace ProjectsInfo.Models
         [Display(Name = "До конца")] 
         public string TimeBeforeEnd => DaysFormat((EndDate - DateTime.Now).Days);
 
-        public int MonthsCount => (EndDate.Month - StartDate.Month + 1) + 12 * (EndDate.Year - StartDate.Year);
+        public int MonthsCount => (DateTime.Now.Month - StartDate.Month + 1) + 12 * (DateTime.Now.Year - StartDate.Year);
+
+        public IEnumerable<string> MonthCollection
+        {
+            get
+            {
+                var result = new List<string>();
+                for (var i = 0; i < MonthsCount; i++)
+                {
+                    var month = StartDate.Month + i % 12;
+                    var year = StartDate.Year + i / 12;
+                    result.Add($"{month}/{year}");
+                }
+
+                return result;
+            }
+        }
 
         [Display(Name = "Часы разработки")]
         public int ExpectedHours { get; set; }
