@@ -3,13 +3,11 @@
 @{
     ViewData["Title"] = "Create";
 }
-
-<h1>Create</h1>
-
-<h4>Developer</h4>
-<hr />
+<div style="margin-bottom:10%">
+    <h1 style="text-align:center;margin:2%">Create developer</h1>
+</div>
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4" style="margin-left:auto;margin-right:auto">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -22,15 +20,16 @@
                 <input asp-for="Salary" class="form-control" />
                 <span asp-validation-for="Salary" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" style="display: flex; flex-flow: row">
                 <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-action="Index">
+                    <button type="button" class="btn waves-effect waves-light btn-block btn-danger" style="margin-left:5%">
+                        Back to List
+                    </button>
+                </a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
