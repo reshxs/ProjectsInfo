@@ -4,29 +4,38 @@
     ViewData["Title"] = "Удалить менеджера";
 }
 
-<h1>Удалить менеджера</h1>
+<h1 style="text-align:center;margin:2%">Удалить менеджера</h1>
 
-<h3>Вы уверены, что хотите удалить данного менеджера?</h3>
 <div>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Salary)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Salary)
-        </dd>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="ID" />
-        <input type="submit" value="Удалить" class="btn btn-danger" /> |
-        <a asp-action="Index">Назад</a>
-    </form>
+    <div class="container">
+        <div class="row">
+            <div class="col" style="padding-left:25%;margin-bottom:1%">
+                @Html.DisplayNameFor(model => model.Name)
+            </div>
+            <div class="col" style="padding-left:25%;margin-bottom:1%">
+                @Html.DisplayFor(model => model.Name)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" style="padding-left:25%;margin-bottom:1%">
+                @Html.DisplayNameFor(model => model.Salary)
+            </div>
+            <div class="col" style="padding-left:25%;margin-bottom:2%">
+                @Html.DisplayFor(model => model.Salary)
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" style="padding-left:25%">
+                <form asp-action="Delete" style="display: flex; flex-flow: row">
+                    <input type="hidden" asp-for="ID" />
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                    <a asp-action="Index">
+                        <button type="button" class="btn waves-effect waves-light btn-block btn-danger" style="margin-left:5%">
+                            Back
+                        </button>
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
