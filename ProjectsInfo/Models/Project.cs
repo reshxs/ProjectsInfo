@@ -25,54 +25,7 @@ namespace ProjectsInfo.Models
         [Display(Name = "До конца")] 
         public string TimeBeforeEnd => DaysFormat((EndDate - DateTime.Now).Days);
 
-        public int MonthsCount => (DateTime.Now.Month - StartDate.Month + 1) + 12 * (DateTime.Now.Year - StartDate.Year);
-
-        public IEnumerable<string> MonthCollection
-        {
-            get
-            {
-                var result = new List<string>();
-                for (var i = 0; i < MonthsCount; i++)
-                {
-                    var month = StartDate.Month + i % 12;
-                    var year = StartDate.Year + i / 12;
-                    result.Add($"{month}/{year}");
-                }
-
-                return result;
-            }
-        }
-
-        public IEnumerable<int> MonthsTotals
-        {
-            get
-            {
-                if (DeveloperAssignments == null)
-                    return null;
-                var result = new List<int>(MonthsCount);
-                foreach (var developer in DeveloperAssignments)
-                {
-                    for (var i = 0; i < developer.Months.Count; i++)
-                    {
-                        var month = developer.Months.ElementAtOrDefault(i);
-                        if (month != null)
-                        {
-                            if (result.Count < i + 1)
-                            {
-                                result.Add(month.Hours);
-                            }
-                            else
-                            {
-                                result[i] += month.Hours;
-                            }
-                        }
-                    }
-                }
-                return result;
-            }
-        }
-
-        public int TotalHours => DeveloperAssignments?.Sum(d => d.TotalHours) ?? 0;
+        public int MonthsCount => (EndDate.Month - StartDate.Month + 1) + 12 * (EndDate.Year - StartDate.Year);
 
         [Display(Name = "Часы разработки")]
         public int ExpectedHours { get; set; }
@@ -122,24 +75,12 @@ namespace ProjectsInfo.Models
                 if(DeveloperAssignments == null)
                     return 0;
                 var actualTime = DeveloperAssignments.Sum(d => d.TotalHours);
-                if (actualTime == 0)
-                    return 0;
-                var expectedTime = ExpectedHours + TestingHours;
-                var profit = (decimal)expectedTime / actualTime * 100;
-                return profit;
+                return actualTime / (ExpectedHours + TestingHours) * 100;
             }
         }
 
         [Display(Name= "Рентабельность (Денеж.)")]
-        public decimal MoneyProfit
-        {
-            get
-            {
-                if (ActualPrice == 0)
-                    return 0;
-                return Price / ActualPrice * 100;
-            }
-        }
+        public decimal MoneyProfit => ActualPrice / Price * 100;
 
         private static string DaysFormat(int daysCount)
         {

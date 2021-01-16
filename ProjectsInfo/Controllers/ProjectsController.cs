@@ -26,11 +26,7 @@ namespace ProjectsInfo.Controllers
         public async Task<IActionResult> Index()
         {
             var projects = await _context.Projects
-                .Include(p => p.Manager)
-                .Include(p => p.DeveloperAssignments)
-                .ThenInclude(d => d.Months)
-                .Include(p => p.DeveloperAssignments)
-                .ThenInclude(p => p.Developer)
+                .Include(m => m.Manager)
                 .ToListAsync();
             return View(projects);
         }
@@ -45,10 +41,6 @@ namespace ProjectsInfo.Controllers
             }
 
             var project = await _context.Projects
-                .Include(p => p.DeveloperAssignments)
-                .ThenInclude(d => d.Months)
-                .Include(p => p.DeveloperAssignments)
-                .ThenInclude(p => p.Developer)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (project == null)
             {
@@ -178,8 +170,146 @@ namespace ProjectsInfo.Controllers
             {
                 return NotFound();
             }
-            
+
+            PopulateAssignedDeveloperData(project);
             return View(project);
+        }
+
+        // POST: Project/EditDevelopers/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditDevelopers(int? id, string[] selectedDevelopers)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var projectToUpdate = await _context.Projects
+                .Include(p => p.DeveloperAssignments)
+                    .ThenInclude(p => p.Developer)
+                .Include(p => p.DeveloperAssignments)
+                    .ThenInclude(d => d.Months)
+                .FirstOrDefaultAsync(m => m.ID == id);
+            
+            if (await TryUpdateModelAsync(
+                projectToUpdate,
+                "",
+                p => p.Title, p => p.StartDate, p => p.EndDate, p => p.ExpectedHours, p => p.DevelopmentHourPrice,
+                p => p.TestingHours, p => p.TestingHourPrice
+            ))
+            {
+                UpdateProjectDevelopers(selectedDevelopers, projectToUpdate);
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch(DbUpdateException)
+                {
+                    ModelState.AddModelError("", "Unable to save changes. " +
+                                                 "Try again, and if the problem persists, " +
+                                                 "see your system administrator.");
+                }   
+            }
+            UpdateProjectDevelopers(selectedDevelopers, projectToUpdate);
+            PopulateAssignedDeveloperData(projectToUpdate);
+            return RedirectToAction(nameof(EditDevelopers));
+        }
+        
+        private void PopulateAssignedDeveloperData(Project project)
+        {
+            var allDevelopers = _context.Developers;
+            var projectDevelopers = new HashSet<int>(
+                project.DeveloperAssignments.Select(d => d.DeveloperID));
+            var viewModel = allDevelopers
+                .Select(developer => new AssignedDeveloperData
+                {
+                    DeveloperID = developer.ID, 
+                    Name = developer.Name, 
+                    Assigned = projectDevelopers.Contains(developer.ID)
+                }).ToList();
+
+            ViewData["Developers"] = viewModel;
+        }
+
+        private void UpdateProjectDevelopers(string[] selectedDevelopers, Project projectToUpdate)
+        {
+            if (selectedDevelopers == null)
+            {
+                projectToUpdate.DeveloperAssignments = new List<DeveloperAssignment>();
+                return;
+            }
+            
+            var selectedDevelopersHs = new HashSet<string>(selectedDevelopers);
+            var projectDevelopers = new HashSet<int>(
+                projectToUpdate.DeveloperAssignments.Select(d => d.Developer.ID));
+            foreach (var developer in _context.Developers)
+            {
+                if (selectedDevelopersHs.Contains(developer.ID.ToString()))
+                {
+                    if (!projectDevelopers.Contains(developer.ID))
+                    {
+                        var newDeveloper = new DeveloperAssignment()
+                        {
+                            ProjectID = projectToUpdate.ID,
+                            DeveloperID = developer.ID,
+                            Project = projectToUpdate,
+                            Developer = developer,
+                        };
+                        projectToUpdate.DeveloperAssignments.Add(newDeveloper);
+                        UpdateMonthsForDeveloper(newDeveloper);
+                    }
+                }
+                else
+                {
+                    if (projectDevelopers.Contains(developer.ID))
+                    {
+                        var developerToRemove = projectToUpdate.DeveloperAssignments.FirstOrDefault(
+                            d => d.DeveloperID == developer.ID);
+                        _context.Remove(developerToRemove!);
+                    }
+                }
+            }
+        }
+
+        private void UpdateMonthsForDeveloper(DeveloperAssignment developerAssignment)
+        {
+            var startDate = developerAssignment.Project.StartDate;
+            var startMonth = startDate.Month;
+            var startYear = startDate.Year;
+            var currentMonth = DateTime.Now.Month;
+            var currentYear = DateTime.Now.Year;
+
+            developerAssignment.Months ??= new List<Month>();
+            var developerMonths = developerAssignment.Months
+                .Select(month => month.Date)
+                .ToHashSet();
+            
+            //TODO: Добавляется на один месяц меньше, чем надо!
+            while (startMonth <= currentMonth && startYear <= currentYear)
+            {
+                var newDate = DateTime.Parse($"{startYear}-{startMonth}-1");
+                if (!developerMonths.Contains(newDate))
+                {
+                    var newMonth = new Month
+                    {
+                        Date = newDate,
+                        Hours = 0,
+                        DeveloperAssignmentID = developerAssignment.ID,
+                        DeveloperAssignment = developerAssignment
+                    };
+                    developerAssignment.Months.Add(newMonth);
+                }
+
+                startMonth++;
+                if (startMonth > 12)
+                {
+                    startYear++;
+                    startMonth = 1;
+                }
+            }
         }
 
         // GET: Project/Delete/5
