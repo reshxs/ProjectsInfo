@@ -82,17 +82,17 @@
                         {
                             <th data-hide="phone, tablet">@month</th>
                         }
-                        <th data-hide="phone, tablet">Sum of hours</th>
+                        <th data-hide="phone, tablet">Общая сумма</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Sum of hours</td>
-                        @for (int i = 1; i < Model.MonthsCount + 1; i++)
+                        <td>Часов в месяц</td>
+                        @foreach (var month in Model.MonthsTotals)
                         {
-                            <td>number</td>
+	                        <td>@month</td>
                         }
-                        <td>sum</td>
+                        <td>@Model.TotalHours</td>
                     </tr>
                 </tbody>
             </table>
@@ -137,6 +137,9 @@
                 			'hours': input.value
                 		}
                 		console.log(model)
+                		$.post('@Url.Action("UpdateMonth", "Ajax")/' + model.monthId, model, function (data){
+                			console.log(data)
+                		})
                 		
                 	} else {
                 		let model = {
