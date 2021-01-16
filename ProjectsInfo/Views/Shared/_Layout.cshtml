@@ -15,13 +15,15 @@
             <nav class="navbar top-navbar navbar-expand-md navbar-light">
                 <div class="navbar-collapse">
                     <ul class="navbar-nav mr-auto mt-md-0">
-                        <a asp-action="Index" asp-controller="Projects" style="color:white;padding-left:30%">Проекты</a>
-                    </ul>
-                    <ul class="navbar-nav mr-auto mt-md-0">
-                        <a asp-action="Index" asp-controller="Developers" style="color:white;padding-left:30%">Разработчики</a>
-                    </ul>
-                    <ul class="navbar-nav mr-auto mt-md-0">
-                        <a asp-action="Index" asp-controller="Managers" style="color:white;padding-left:30%">Менеджеры</a>
+                        <li>
+                            <a asp-action="Index" asp-controller="Projects" style="color:white;display:block;padding-left:30px">Проекты</a>
+                        </li>
+                        <li>
+                            <a asp-action="Index" asp-controller="Developers" style="color:white;display:block;padding-left:30px">Разработчики</a>
+                        </li>
+                        <li>
+                            <a asp-action="Index" asp-controller="Managers" style="color:white;display:block;padding-left:30px">Менеджеры</a>
+                        </li>
                     </ul>
                     <ul class="navbar-nav my-lg-0">
                         <li class="nav-item dropdown">
@@ -68,8 +70,7 @@
     <script src="~/js/custom.min.js"></script>
     <script src="~/js/jasny-bootstrap.js"></script>
     <script src="~/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
-    <script src="~/js/footable-init.js"></script>
     <script src="~/assets/plugins/footable/js/footable.all.min.js"></script>
-    @RenderSection("Scripts", required: false)
+@RenderSection("Scripts", required: false)
 </body>
 </html>

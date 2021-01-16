@@ -28,57 +28,87 @@
         @foreach (var project in Model)
         {
             <div class="card">
-                <div class="card-body">
-                    <div><h4 class="card-title"> @Html.DisplayFor(modelItem => project.Title)</h4></div>
-                    <div style="height: 200px; overflow: auto;">
-                        <div style="float: left;width: 54%;height: 100%">Описание проекта</div>
+                <div class="card-body" style="height:300px">
+                    <div>
+                        <h4 class="card-title">
+                           @Html.DisplayFor(modelItem => project.Title)
+                        </h4>
+                    </div>
+                    <div style="height: 300px; overflow: auto;">
+                        <div style="float: left;width: 54%;height: 100%"></div>
                         <div style="float: right;width:46%;height: 100%;padding-left:20px">
-                            <div style="height: 20%;width: 40%;margin-bottom: 5%;display: flex;flex-flow: row">
+                            <div style="height: 20%;width: 40%;display: flex;flex-flow: row">
                                 <div>
                                     <button type="button" class="btn waves-effect waves-light btn-block btn-danger">
-                                        <a asp-action="Edit" asp-route-id="@project.ID" style="color:white">Редактировать</a>
-                                    </button>
-                                </div>
-                                <div>
-                                    <button type="button" class="btn waves-effect waves-light btn-block btn-danger" style="margin-left:4%">
-                                        <a asp-action="Delete" asp-route-id="@project.ID" style="color:white">Удалить</a>
-                                    </button>
-                                </div>
-                                <div>
-                                    <button type="button" class="btn waves-effect waves-light btn-block btn-danger" style="margin-left:5%">
                                         <a asp-action="Details" asp-route-id="@project.ID" style="color:white">Подробности</a>
                                     </button>
                                 </div>
                                 <div>
-                                    <button type="button" class="btn waves-effect waves-light btn-block btn-danger" style="margin-left:6%;width:200%">
+                                    <button type="button" class="btn waves-effect waves-light btn-block btn-danger" style="width:200%;margin-left:2%">
                                         <a asp-action="EditDevelopers" asp-route-id="@project.ID" style="color:white">Редактировать разработчиков</a>
                                     </button>
                                 </div>
                             </div>
-                            <div style="height: 15%">
-                                <span style="height: 80%;width:42%" class="label label-success">
-                                    <h5 style="color: white">Менеджер</h5>
+                            <div style="height: 10%">
+                                <span style="height: 80%;width:42%;float:left" class="label label-success">
+                                    <h5 style="color: white">
+                                    @Html.DisplayNameFor(modelItem => project.Manager)
+                                    </h5>
                                 </span>
-                                @Html.DisplayFor(modelItem => project.Manager.Name)
+                                <div style="float:left;margin-left:1%">
+                                    @Html.DisplayFor(modelItem => project.Manager.Name)
+                                </div>
                             </div>
-                            <div style="height: 15%">
-                                <span style="height: 80%;width:42%" class="label label-warning">
-                                    <h5 style="color: white">Стоимость</h5>
+                            <div style="height: 10%">
+                                <span style="height: 80%;width:42%;float:left" class="label label-warning">
+                                    <h5 style="color: white">
+                                    @Html.DisplayNameFor(modelItem => project.Price)
+                                    </h5>
                                 </span>
-                                @Html.DisplayFor(modelItem => project.Price)
+                                <div style="float:left;margin-left:1%">
+                                    @Html.DisplayFor(modelItem => project.Price)
+                                </div>
                             </div>
-                            <div style="height: 15%">
-                                <span style="height: 80%;width:42% " class="label label-danger">
-                                    <h5 style="color: white">Дата начала - дата конца</h5>
+                            <div style="height: 10%">
+                                <span style="height: 80%;width:42%;float:left" class="label label-warning">
+                                    <h5 style="color: white">
+                                    @Html.DisplayNameFor(modelItem => project.TimeProfit)%
+                                    </h5>
                                 </span>
-                                @Html.DisplayFor(modelItem => project.StartDate) - @Html.DisplayFor(modelItem => project.EndDate)
+                                <div style="float:left;margin-left:1%">
+                                    @Html.DisplayFor(modelItem => project.TimeProfit)%
+                                </div>
                             </div>
-                            <div style="height: 15%">
-                                <span style="height: 80%;width:42% " class="label label-danger">
-                                    <h5 style="color: white">До конца проекта осталось</h5>
+                            <div style="height: 10%">
+                                <span style="height: 80%;width:42%;float:left" class="label label-warning">
+                                    <h5 style="color: white">
+                                    @Html.DisplayNameFor(modelItem => project.MoneyProfit)%
+                                    </h5>
                                 </span>
-                                @Html.DisplayFor(modelItem => project.TimeBeforeEnd)
+                                <div style="float:left;margin-left:1%">
+                                    @Html.DisplayFor(modelItem => project.MoneyProfit)%
+                                </div>
                             </div>
+                            <div style="height: 10%">
+                                <span style="height: 80%;width:42%;float:left" class="label label-danger">
+                                    <h5 style="color: white">
+                                     @Html.DisplayNameFor(modelItem => project.StartDate) - @Html.DisplayNameFor(modelItem => project.EndDate)
+                                    </h5>
+                                </span>
+                                <div style="float:left;margin-left:1%">
+                                     @Html.DisplayFor(modelItem => project.StartDate) - @Html.DisplayFor(modelItem => project.EndDate)
+                                </div>
+                            </div>
+                             <div style="height: 10%">
+                                <span style="height: 80%;width:42%;float:left" class="label label-danger">
+                                    <h5 style="color: white">
+                                     @Html.DisplayNameFor(modelItem => project.TimeBeforeEnd)
+                                    </h5>
+                                </span>
+                                <div style="float:left;margin-left:1%">
+                                     @Html.DisplayFor(modelItem => project.TimeBeforeEnd)
+                                </div>
+                             </div>
                         </div>
                     </div>
                 </div>
