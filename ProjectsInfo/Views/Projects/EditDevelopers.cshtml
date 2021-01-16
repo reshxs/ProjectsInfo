@@ -137,6 +137,9 @@
                 			'hours': input.value
                 		}
                 		console.log(model)
+                		$.post('@Url.Action("UpdateMonth", "Ajax")/' + model.monthId, model, function (data){
+                			console.log(data)
+                		})
                 		
                 	} else {
                 		let model = {
