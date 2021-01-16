@@ -1,6 +1,6 @@
 
 $(window).on('load', function() {
-
+	
 	// Row Toggler
 	// -----------------------------------------------------------------
 	$('#demo-foo-row-toggler').footable();
@@ -80,33 +80,39 @@ $(window).on('load', function() {
 	});
 	// Add Row Button
 	$('#demo-btn-addrow').click(function() {
+		var url = $(location).attr('href').split('/')
+		var projectId = url[url.length - 1]
+		console.log(projectId)
+		$.get("https://localhost:5001/Ajax/GetNotAssignedDevelopers/" + projectId, function (data) {
+			console.log(data)
+			var developers = ''
+			for (let i = 0; i < data.length; i++)
+			{
+				developers += '<a class="dropdown-item">' + data[i].name + '</a>\n'
+			}
+			//get the footable object
+			var footable = addrow.data('footable');
 
-		//get the footable object
-		var footable = addrow.data('footable');
-		
-		//build up the row we are wanting to add
+			//build up the row we are wanting to add
 
-		let rows = '';
-		for (var i = 0; i < countadd; i++) {
-			rows += '<td class="change"></td>'
-		}
+			let rows = '';
+			for (var i = 0; i < countadd; i++) {
+				rows += '<td class="change"></td>'
+			}
 
-		var newRow = '<tr><td><div class="btn-group">\n' +
-			'<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\n' +
-			'      Chose developer\n' +
-			'</button>\n' +
-			'<div class="dropdown-menu">\n' +
-			'      <a class="dropdown-item" href="#">Action</a>\n' +
-			'      <a class="dropdown-item" href="#">Another action</a>\n' +
-			'      <a class="dropdown-item" href="#">Something else here</a>\n' +
-			'      <div class="dropdown-divider"></div>\n' +
-			'      <a class="dropdown-item" href="#">Separated link</a>\n' +
-			' </div>\n' +
-			' </div></td>';
-		newRow += rows;
-		newRow += '<td>sum</td><td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button></td></tr>'
+			var newRow = '<tr><td><div class="btn-group">\n' +
+				'<button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\n' +
+				'      Chose developer\n' +
+				'</button>\n' +
+				'<div class="dropdown-menu">\n' +
+						developers +
+				' </div>\n' +
+				' </div></td>';
+			newRow += rows;
+			newRow += '<td>sum</td><td><button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button></td></tr>'
 
-		//add it
-		footable.appendRow(newRow);
+			//add it
+			footable.appendRow(newRow);
+		})
 	});
 });
