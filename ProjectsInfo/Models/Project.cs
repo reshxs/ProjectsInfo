@@ -91,12 +91,24 @@ namespace ProjectsInfo.Models
                 if(DeveloperAssignments == null)
                     return 0;
                 var actualTime = DeveloperAssignments.Sum(d => d.TotalHours);
-                return actualTime / (ExpectedHours + TestingHours) * 100;
+                if (actualTime == 0)
+                    return 0;
+                var expectedTime = ExpectedHours + TestingHours;
+                var profit = (decimal)expectedTime / actualTime * 100;
+                return profit;
             }
         }
 
         [Display(Name= "Рентабельность (Денеж.)")]
-        public decimal MoneyProfit => ActualPrice / Price * 100;
+        public decimal MoneyProfit
+        {
+            get
+            {
+                if (ActualPrice == 0)
+                    return 0;
+                return Price / ActualPrice * 100;
+            }
+        }
 
         private static string DaysFormat(int daysCount)
         {

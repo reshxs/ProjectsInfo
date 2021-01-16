@@ -26,7 +26,11 @@ namespace ProjectsInfo.Controllers
         public async Task<IActionResult> Index()
         {
             var projects = await _context.Projects
-                .Include(m => m.Manager)
+                .Include(p => p.Manager)
+                .Include(p => p.DeveloperAssignments)
+                .ThenInclude(d => d.Months)
+                .Include(p => p.DeveloperAssignments)
+                .ThenInclude(p => p.Developer)
                 .ToListAsync();
             return View(projects);
         }
@@ -41,6 +45,10 @@ namespace ProjectsInfo.Controllers
             }
 
             var project = await _context.Projects
+                .Include(p => p.DeveloperAssignments)
+                .ThenInclude(d => d.Months)
+                .Include(p => p.DeveloperAssignments)
+                .ThenInclude(p => p.Developer)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (project == null)
             {

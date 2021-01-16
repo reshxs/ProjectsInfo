@@ -148,7 +148,7 @@
                 		console.log(model)
                 		td.id = 'qwerty'
                 		let monthId = $.post('@Url.Action("AddMonth", "Ajax")/' + td.dataset.prid, model, function (data){
-                			$('#qwerty').setAttribute('data-monthid', data.id)
+                			console.log(data)
                 		})
                 		console.log(monthId)
                 		td.id = ''
