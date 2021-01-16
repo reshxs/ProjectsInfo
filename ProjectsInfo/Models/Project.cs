@@ -43,6 +43,37 @@ namespace ProjectsInfo.Models
             }
         }
 
+        public IEnumerable<int> MonthsTotals
+        {
+            get
+            {
+                if (DeveloperAssignments == null)
+                    return null;
+                var result = new List<int>(MonthsCount);
+                foreach (var developer in DeveloperAssignments)
+                {
+                    for (var i = 0; i < developer.Months.Count; i++)
+                    {
+                        var month = developer.Months.ElementAtOrDefault(i);
+                        if (month != null)
+                        {
+                            if (result.Count < i + 1)
+                            {
+                                result.Add(month.Hours);
+                            }
+                            else
+                            {
+                                result[i] += month.Hours;
+                            }
+                        }
+                    }
+                }
+                return result;
+            }
+        }
+
+        public int TotalHours => DeveloperAssignments?.Sum(d => d.TotalHours) ?? 0;
+
         [Display(Name = "Часы разработки")]
         public int ExpectedHours { get; set; }
 
