@@ -4,11 +4,11 @@
     ViewData["Title"] = "Index";
 }
 
-<h1 style="text-align:center;margin:2%">Developers</h1>
+<h1 class="titleview">Developers</h1>
 
-<div class="container-fluid" style="padding-left:20%;padding-right:20%">
-    <button class="btn btn-primary" style="margin-bottom:2%">
-        <a asp-action="Create" style="color:white">Create New</a>
+<div class="container-fluid centertable">
+    <button class="btn btn-primary createbtn">
+        <a asp-action="Create" class="refcolor">Create New</a>
     </button>
     <table class="table table-bordered table-hover toggle-circle">
         <thead>
@@ -37,10 +37,10 @@
                     <td>
                         <div >
                             <button type="button" class="btn waves-effect waves-light btn-danger" >
-                                <a asp-action="Edit" asp-route-id="@item.ID" style="color:white">Edit</a>
+                                <a asp-action="Edit" asp-route-id="@item.ID" class="refcolor">Edit</a>
                             </button>
                             <button type="button" class="btn waves-effect waves-light  btn-danger">
-                                <a asp-action="Delete" asp-route-id="@item.ID" style="color:white">Delete</a>
+                                <a asp-action="Delete" asp-route-id="@item.ID" class="refcolor">Delete</a>
                             </button>
                         </div>
                     </td>

@@ -8,44 +8,45 @@
     <link href="~/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/css/style.css" rel="stylesheet" />
     <link href="~/css/colors/blue.css" id="theme" rel="stylesheet" />
+    <link href="~/css/customstyle.css" id="custom" rel="stylesheet" />
 </head>
 <body class="fix-header card-no-border mini-sidebar">
     <div id="main-wrapper">
-        <header class="topbar" style="">
+        <header class="topbar">
             <nav class="navbar top-navbar navbar-expand-md navbar-light">
                 <div class="navbar-collapse">
                     <ul class="navbar-nav mr-auto mt-md-0">
                         <li>
-                            <a asp-action="Index" asp-controller="Projects" style="color:white;display:block;padding-left:30px">Проекты</a>
+                            <a asp-action="Index" asp-controller="Projects" class="navigation" >Проекты</a>
                         </li>
                         <li>
-                            <a asp-action="Index" asp-controller="Developers" style="color:white;display:block;padding-left:30px">Разработчики</a>
+                            <a asp-action="Index" asp-controller="Developers" class="navigation">Разработчики</a>
                         </li>
                         <li>
-                            <a asp-action="Index" asp-controller="Managers" style="color:white;display:block;padding-left:30px">Менеджеры</a>
+                            <a asp-action="Index" asp-controller="Managers" class="navigation">Менеджеры</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav my-lg-0">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img src="~/assets/images/users/user.png" class="profile-pic">
                             </a>
-                            <div style="padding:0" class="dropdown-menu dropdown-menu-right scale-up">
+                            <div class="dropdown-menu dropdown-menu-right scale-up login">
 
                                 @if (User.Identity.IsAuthenticated)
                                 {
                                     <p>@User.Identity.Name</p>
                                     <button type="button" class="btn waves-effect waves-light btn-block btn-danger">
-                                        <a style="color:white" asp-controller="Accounts" asp-action="Logout">Logout</a>
+                                        <a asp-controller="Accounts" asp-action="Logout" class="refcolor">Logout</a>
                                     </button>
                                 }
                                 else
                                 {
-                                    <button style="width:100%;margin-bottom:1%" type="button" class="btn waves-effect waves-light btn-info">
-                                        <a style="color:white" asp-controller="Accounts" asp-action="Login">Login</a>
+                                    <button type="button" class="btn waves-effect waves-light btn-info logbutton">
+                                        <a asp-controller="Accounts" asp-action="Login" class="refcolor">Login</a>
                                     </button>
                                     <button type="button" class="btn waves-effect waves-light btn-block btn-danger">
-                                        <a style="color:white" asp-controller="Accounts" asp-action="Register">Register</a>
+                                        <a asp-controller="Accounts" asp-action="Register" class="refcolor">Register</a>
                                     </button>
                                 }
                             </div>
