@@ -4,104 +4,148 @@
     ViewData["Title"] = "Удалить пороект";
 }
 
-<h1 style="text-align:center;margin:2%">Удалить проект</h1>
+<h1 class="titleview">Удалить проект</h1>
 <div>
     <div class="container">
         <div class="row">
-            <div class="col" style="padding-left:25%;margin-bottom:1%">
-                @Html.DisplayNameFor(model => model.Title)
+            <div class="col detailsinfo">
+                <div class="leftside">
+                    @Html.DisplayNameFor(model => model.Title)
+                </div>
             </div>
-            <div class="col">
-                @Html.DisplayFor(model => model.Title)
-            </div>
-        </div>
-        <div class="row">
-            <div class="col" style="padding-left:25%;margin-bottom:1%">
-                @Html.DisplayNameFor(model => model.StartDate)
-            </div>
-            <div class="col">
-                @Html.DisplayFor(model => model.StartDate)
+            <div class="col detailsvalue">
+                <div class="rightside">
+                    @Html.DisplayFor(model => model.Title)
+                </div>
             </div>
         </div>
         <div class="row">
-            <div class="col" style="padding-left:25%;margin-bottom:1%">
-                @Html.DisplayNameFor(model => model.EndDate)
+            <div class="col detailsinfo">
+                <div class="leftside">
+                    @Html.DisplayNameFor(model => model.StartDate)
+                </div>
             </div>
-            <div class="col">
-                @Html.DisplayFor(model => model.EndDate)
-            </div>
-        </div>
-        <div class="row">
-            <div class="col" style="padding-left:25%;margin-bottom:1%">
-                @Html.DisplayNameFor(model => model.ExpectedHours)
-            </div>
-            <div class="col">
-                @Html.DisplayFor(model => model.ExpectedHours)
+            <div class="col detailsvalue">
+                <div class="rightside">
+                    @Html.DisplayFor(model => model.StartDate)
+                </div>
             </div>
         </div>
         <div class="row">
-            <div class="col" style="padding-left:25%;margin-bottom:1%">
-                @Html.DisplayNameFor(model => model.DevelopmentHourPrice)
+            <div class="col detailsinfo">
+                <div class="leftside">
+                    @Html.DisplayNameFor(model => model.EndDate)
+                </div>
             </div>
-            <div class="col">
-                @Html.DisplayFor(model => model.DevelopmentHourPrice)
-            </div>
-        </div>
-        <div class="row">
-            <div class="col" style="padding-left:25%;margin-bottom:1%">
-                @Html.DisplayNameFor(model => model.TestingHours)
-            </div>
-            <div class="col">
-                @Html.DisplayFor(model => model.TestingHours)
+            <div class="col detailsvalue">
+                <div class="rightside">
+                    @Html.DisplayFor(model => model.EndDate)
+                </div>
             </div>
         </div>
         <div class="row">
-            <div class="col" style="padding-left:25%;margin-bottom:1%">
-                @Html.DisplayNameFor(model => model.TestingHourPrice)
+            <div class="col detailsinfo">
+                <div class="leftside">
+                    @Html.DisplayNameFor(model => model.ExpectedHours)
+                </div>
             </div>
-            <div class="col">
-                @Html.DisplayFor(model => model.TestingHourPrice)
-            </div>
-        </div>
-        <div class="row">
-            <div class="col" style="padding-left:25%;margin-bottom:1%">
-                @Html.DisplayNameFor(model => model.Manager)
-            </div>
-            <div class="col">
-                @Html.DisplayFor(model => model.Manager.Name)
+            <div class="col detailsvalue">
+                <div class="rightside">
+                    @Html.DisplayFor(model => model.ExpectedHours)
+                </div>
             </div>
         </div>
         <div class="row">
-            <div class="col" style="padding-left:25%;margin-bottom:1%">
-                @Html.DisplayNameFor(model => model.TimeProfit)%
+            <div class="col detailsinfo">
+                <div class="leftside">
+                    @Html.DisplayNameFor(model => model.DevelopmentHourPrice)
+                </div>
             </div>
-            <div class="col">
-                @Html.DisplayFor(model => model.TimeProfit)%
-            </div>
-        </div>
-        <div class="row">
-            <div class="col" style="padding-left:25%;margin-bottom:1%">
-                @Html.DisplayNameFor(model => model.MoneyProfit)%
-            </div>
-            <div class="col">
-                @Html.DisplayFor(model => model.MoneyProfit)%
+            <div class="col detailsvalue">
+                <div class="rightside">
+                    @Html.DisplayFor(model => model.DevelopmentHourPrice)
+                </div>
             </div>
         </div>
         <div class="row">
-            <div class="col" style="padding-left:25%;margin-bottom:2%">
-                @Html.DisplayNameFor(model => model.TimeBeforeEnd)
+            <div class="col detailsinfo">
+                <div class="leftside">
+                    @Html.DisplayNameFor(model => model.TestingHours)
+                </div>
             </div>
-            <div class="col">
-                @Html.DisplayFor(model => model.TimeBeforeEnd)
+            <div class="col detailsvalue">
+                <div class="rightside">
+                    @Html.DisplayFor(model => model.TestingHours)
+                </div>
             </div>
         </div>
         <div class="row">
-            <div class="col" style="padding-left:25%">
-                <form asp-action="Delete" style="display: flex; flex-flow: row">
+            <div class="col detailsinfo">
+                <div class="leftside">
+                    @Html.DisplayNameFor(model => model.TestingHourPrice)
+                </div>
+            </div>
+            <div class="col detailsvalue">
+                <div class="rightside">
+                    @Html.DisplayFor(model => model.TestingHourPrice)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col detailsinfo">
+                <div class="leftside">
+                    @Html.DisplayNameFor(model => model.Manager)
+                </div>
+            </div>
+            <div class="col detailsvalue">
+                <div class="rightside">
+                    @Html.DisplayFor(model => model.Manager.Name)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col detailsinfo">
+                <div class="leftside">
+                    @Html.DisplayNameFor(model => model.TimeProfit)%
+                </div>
+            </div>
+            <div class="col detailsvalue">
+                <div class="rightside">
+                    @Html.DisplayFor(model => model.TimeProfit)%
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col detailsinfo">
+                <div class="leftside">
+                    @Html.DisplayNameFor(model => model.MoneyProfit)%
+                </div>
+            </div>
+            <div class="col detailsvalue">
+                <div class="rightside">
+                    @Html.DisplayFor(model => model.MoneyProfit)%
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col detailsinfo">
+                <div class="leftside">
+                    @Html.DisplayNameFor(model => model.TimeBeforeEnd)
+                </div>
+            </div>
+            <div class="col detailsvalue">
+                <div class="rightside">
+                    @Html.DisplayFor(model => model.TimeBeforeEnd)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col detailsrowbtn">
+                <form asp-action="Delete" class="rowbtn">
                     <input type="hidden" asp-for="ID" />
                     <input type="submit" value="Удалить" class="btn btn-danger" />
                     <a asp-action="Index">
-                        <button type="button" class="btn waves-effect waves-light btn-block btn-danger" style="margin-left:5%">
+                        <button type="button" class="btn waves-effect waves-light btn-block btn-danger backbtn">
                             Назад
                         </button>
                     </a>

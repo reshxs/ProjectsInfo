@@ -4,33 +4,41 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1 style="text-align:center;margin:2%">Delete developer</h1>
+<h1 class="titleview" ">Delete developer</h1>
 
 <div>
     <div class="container">
         <div class="row">
-            <div class="col" style="padding-left:25%;margin-bottom:1%">
-                @Html.DisplayNameFor(model => model.Name)
+            <div class="col detailsinfo">
+                <div class="leftside">
+                    @Html.DisplayNameFor(model => model.Name)
+                </div>
             </div>
-            <div class="col" style="padding-left:25%;margin-bottom:1%">
-                @Html.DisplayFor(model => model.Name)
-            </div>
-        </div>
-        <div class="row">
-            <div class="col" style="padding-left:25%;margin-bottom:1%">
-                @Html.DisplayNameFor(model => model.Salary)
-            </div>
-            <div class="col" style="padding-left:25%;margin-bottom:2%">
-                @Html.DisplayFor(model => model.Salary)
+            <div class="col detailsvalue">
+                <div class="rightside">
+                    @Html.DisplayFor(model => model.Name)
+                </div>
             </div>
         </div>
         <div class="row">
-            <div class="col" style="padding-left:25%">
-                <form asp-action="Delete" style="display: flex; flex-flow: row">
+            <div class="col detailsinfo">
+                <div class="leftside">
+                    @Html.DisplayNameFor(model => model.Salary)
+                </div>
+            </div>
+            <div class="col detailsvalue">
+                <div class="rightside">
+                    @Html.DisplayFor(model => model.Salary)
+                </div>
+            </div>
+            </div>
+        <div class="row">
+            <div class="col detailsrowbtn">
+                <form asp-action="Delete" class="rowbtn">
                     <input type="hidden" asp-for="ID" />
                     <input type="submit" value="Delete" class="btn btn-danger" />
                     <a asp-action="Index">
-                        <button type="button" class="btn waves-effect waves-light btn-block btn-danger" style="margin-left:5%">
+                        <button type="button" class="btn waves-effect waves-light btn-block btn-danger backbtn">
                             Back
                         </button>
                     </a>

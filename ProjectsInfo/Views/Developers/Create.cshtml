@@ -3,11 +3,11 @@
 @{
     ViewData["Title"] = "Create";
 }
-<div style="margin-bottom:10%">
-    <h1 style="text-align:center;margin:2%">Create developer</h1>
+<div class="margintitle">
+    <h1 class="titleview">Create developer</h1>
 </div>
 <div class="row">
-    <div class="col-md-4" style="margin-left:auto;margin-right:auto">
+    <div class="col-md-4 centercontent">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -20,10 +20,10 @@
                 <input asp-for="Salary" class="form-control" />
                 <span asp-validation-for="Salary" class="text-danger"></span>
             </div>
-            <div class="form-group" style="display: flex; flex-flow: row">
+            <div class="form-group rowbtn">
                 <input type="submit" value="Create" class="btn btn-primary" />
                 <a asp-action="Index">
-                    <button type="button" class="btn waves-effect waves-light btn-block btn-danger" style="margin-left:5%">
+                    <button type="button" class="btn waves-effect waves-light btn-block btn-danger backbtn">
                         Back to List
                     </button>
                 </a>
