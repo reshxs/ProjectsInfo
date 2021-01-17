@@ -2,6 +2,15 @@
     margin: 2% 0 30px 83%;
     width: 17%
 }
+.adddevbtn {
+    width: 120%;
+    height: 40px
+}
+
+.acceptbtn {
+    width:20%;
+    margin-left:5px;
+}
 
 a:hover {
     color:silver;
@@ -101,6 +110,11 @@ a:hover {
     padding-left: 30px
 }
 
+.pagright {
+    float: right;
+    margin: 0
+}
+
 .projectinfo {
     float: right;
     width: 46%;
@@ -126,6 +140,10 @@ a:hover {
     width: 40%;
     display: flex;
     flex-flow: row
+}
+
+.tablespace {
+    margin-bottom: 2%
 }
 
 .rowinfo {
